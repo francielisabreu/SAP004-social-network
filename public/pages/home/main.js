@@ -1,7 +1,7 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
 import { greeting } from './data.js';
 
-export const home = () => {
+/* export const home = () => {
   const container = document.createElement('div');
 
   container.innerHTML = `
@@ -22,4 +22,4 @@ export const home = () => {
   });
 
   return container;
-};
+}; */
