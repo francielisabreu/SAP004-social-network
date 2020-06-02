@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 html,
 body,
 div,
@@ -71,15 +70,3 @@ body {
   align-items: center;
   margin: 8px;
 }
-=======
-*{
-    margin: 0 auto;
-}
-.container {
-    background-color: gray;
-    text-align: center;
-}
-form{
-    display: grid;
-}
->>>>>>> be2bb8dbdee7e05019f6f67498bd29e9fa79a42c
