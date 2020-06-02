@@ -1,10 +1,58 @@
-*{
-    margin: 0 auto;
+/* reset css */
+html,body,div,h1,h2,h3,em,img,fieldset,form,label,legend,
+table,thead,tr,th,td,article,aside,menu,nav,header,
+a,p {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+ul {
+  list-style: none;
+}
+
+input,
+select {
+  vertical-align: middle;
+}
+body {
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif, arial, Helvetica;
+}
+.img {
+  display: flex;
+  flex-wrap: wrap;
 }
 .container {
-    background-color: gray;
-    text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.form {
+  display: flex;
+}
+.form input {
+  height: 35px;
+  width: 100%;
+  border: none;
+  background-color: #fcfcfc;
+}
+.label-input {
+  display: flex;
+  align-items: center;
+  margin: 8px;
+}
+/* Começo estilização */
+.container {
+  background-color: gray;
+  text-align: center;
 }
 form{
-    display: grid;
+  display: grid;
 }
