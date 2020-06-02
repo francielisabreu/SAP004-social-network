@@ -13,9 +13,7 @@ a,p {
 ul {
   list-style: none;
 }
-
-input,
-select {
+input,select {
   vertical-align: middle;
 }
 body {
