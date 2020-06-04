@@ -9,52 +9,63 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/621b118953.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Bardelas</title>
+    <link rel="icon" href="imagens/bardelas-icon.png" />
   </head>
   <body>
-    <div class="container">
-      <section class="content-site">
-        <div id="imgStart" class="img-login">
-          <img src="imagens/img_site_start.png" alt="" />
-        </div>
-      </section>
-    </div>
-    <main class="main">
-      <div class="logo-site">
+    <section class="page-login">
+      <div class="img-page-login">
+        <img src="imagens/img_site_start_transparente.svg" alt="" />
+      </div>
+      <div class="logo-bardelas">
         <img
-          src="imagens/bardelas-02.png"
-          width="150"
-          height="50"
+          src="imagens/bardelas-logo.svg"
+          alt=""
           title="Bardelas"
+          maxwidth="100"
+          height="45"
         />
       </div>
-      <div>
-        <h2 class="welcome">Seja Bem Vinda!</h2>
-      </div>
+      <h2 class="description">Seja Bem Vinda!</h2>
+      <form class="form" action="#" method="POST">
+        <label class="label-input" for="">
+          <i class="fas fa-at icon-modify"></i>
+          <input type="email" placeholder="Email" title="Email" />
+        </label>
 
-      <section class="form">
-        <form action="">
-          <label class="label-input" for="input-email"></label>
-          <input id="input-email" type="text" placeholder="E-mail" />
+        <label class="label-input" for="">
+          <i class="fas fa-eye icon-modify"></i>
+          <input type="password" placeholder="Password" title="Password" />
+        </label>
 
-          <label class="label-input" for="input-pass"></label>
-          <input
-            class="input-start"
-            id="input-pass"
-            type="password"
-            placeholder="Password"
-          />
-
-          <button id="login" class="btn btn-primary">Login</button>
-        </form>
-        <div class="social-media">
-          <p>
-            Ou deseja ingressar com...
-            <a href="#" class="resgister">Registrar-se</a>
-          </p>
-        </div>
+        <button class="btn btn-login" name="login" type="submit" autofocus>
+          Entrar
+        </button>
+      </form>
+      <p class="description">Ou entre com...</p>
+      <section class="social-media">
+        <ul class="list-social-media">
+          <a class="link-social-media" href="#">
+            <li class="item-social-media">
+              <i class="fab fa-facebook-f"></i>
+            </li>
+          </a>
+          <a class="link-social-media" href="#">
+            <li class="item-social-media">
+              <i class="fab fa-google"></i>
+            </li>
+          </a>
+        </ul>
       </section>
-    </main>
+      <p class="description">
+        Você não tem uma conta? <a class="cadastre" href="#"> Cadastre-se </a>
+      </p>
+    </section>
+
     <script type="module" src="index.js"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
