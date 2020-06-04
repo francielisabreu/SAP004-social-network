@@ -99,9 +99,7 @@ body {
   color: gray;
   font-family: "roboto", Arial, Helvetica, sans-serif;
 }
-input:-webkit-autofill {
-  -webkit-text-fill-color: #000 !important;
-}
+
 .label-input {
   background-color: #f7e2e8;
   display: flex;
@@ -160,12 +158,4 @@ input:-webkit-autofill {
 }
 .cadastre {
   color: #8c3243;
-}
-/* Começo estilização */
-.container {
-  background-color: gray;
-  text-align: center;
-}
-form{
-  display: grid;
 }
