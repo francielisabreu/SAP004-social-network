@@ -19,7 +19,9 @@ article,
 aside,
 menu,
 nav,
+button,
 header,
+section,
 a,
 p {
   margin: 0;
@@ -34,38 +36,130 @@ ul {
   list-style: none;
 }
 
-input,
-select {
-  vertical-align: middle;
-}
-body {
-  line-height: 1.5;
-  font-family: "Roboto", sans-serif, arial, Helvetica;
-}
-.img {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
+html,
+body,
+main {
   width: 100%;
   height: 100%;
-  justify-content: center;
-  align-items: center;
 }
-.form {
+body {
+  background-color: #ffffff;
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif, arial, Helvetica;
+  font-display: fallback;
+}
+.container {
+  width: 100%;
+  display: flex;
+  width: 100%;
+  padding: 0 auto;
+  margin-top: 0.3rem;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.img-page-login img {
+  width: 100%;
+  margin-top: 0.3rem;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  margin-bottom: 0.3rem;
   display: flex;
 }
+
+.logo-bardelas {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.description {
+  color: #333333;
+  font-size: 16px;
+  font-weight: 500;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .form input {
-  height: 35px;
+  height: 30px;
   width: 100%;
   border: none;
-  background-color: #fcfcfc;
+  background-color: #f7e2e8;
+  color: gray;
+  font-family: "roboto", Arial, Helvetica, sans-serif;
+}
+input:-webkit-autofill {
+  -webkit-text-fill-color: #000 !important;
 }
 .label-input {
+  background-color: #f7e2e8;
   display: flex;
   align-items: center;
   margin: 8px;
+  text-decoration: none;
+}
+.icon-modify {
+  color: #8c3243;
+  padding: 0 5px;
+}
+.socil-media {
+  margin: 1rem 0;
+}
+.link-social-media:not(:first-child) {
+  margin-left: 10px;
+}
+.item-social-media {
+  border: 1px solid #8c3243;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  color: #8c3243;
+}
+
+.list-social-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-social-media a {
+  color: silver;
+}
+.link-social-media :not(:first-child) {
+  margin-left: 10px;
+}
+.btn {
+  border-radius: 0.3rem;
+  margin-top: 1rem;
+  padding: 10px 50px;
+  font-size: 14px;
+  font-weight: 500;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  align-self: center;
+  align-self: center;
+}
+.btn-login {
+  color: #ffffff;
+  background-color: #8c3243;
+}
+.cadastre {
+  color: #8c3243;
 }
