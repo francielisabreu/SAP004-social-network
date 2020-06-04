@@ -1,28 +1,5 @@
-html,
-body,
-div,
-h1,
-h2,
-h3,
-em,
-img,
-fieldset,
-form,
-label,
-legend,
-table,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-menu,
-nav,
-button,
-header,
-section,
-a,
+html,body,div,h1,h2,h3,em,img,fieldset,form,label,legend,table,thead,tr,
+th,td,article,aside,menu,nav,button,header,section,a,
 p {
   margin: 0;
   padding: 0;
@@ -45,7 +22,6 @@ body {
   background-color: #ffffff;
   line-height: 1.5;
   font-family: "Roboto", sans-serif, arial, Helvetica;
-  font-display: fallback;
 }
 .container {
   width: 100%;
@@ -152,7 +128,6 @@ input:-webkit-autofill {
   cursor: pointer;
   width: 150px;
   align-self: center;
-  align-self: center;
 }
 .btn-login {
   color: #ffffff;
@@ -160,12 +135,4 @@ input:-webkit-autofill {
 }
 .cadastre {
   color: #8c3243;
-}
-/* Começo estilização */
-.container {
-  background-color: gray;
-  text-align: center;
-}
-form{
-  display: grid;
 }
