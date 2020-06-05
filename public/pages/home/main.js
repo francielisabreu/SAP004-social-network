@@ -4,19 +4,19 @@
 export const home = () => {
   const container = document.createElement('div');
   const startLogIn = `
-    <h2 class="welcome">Seja Bem Vinda!</h2>
+    <h2 class="description">Seja Bem Vinda!</h2>
     <form class="form" action="#" method="POST">
         <label class="label-input" for="">
           <i class="fas fa-at icon-modify"></i>
-          <input type="email" placeholder="Email" title="Email" />
+          <input id="lgn-email" type="email" placeholder="Email" title="Email" />
         </label>
 
         <label class="label-input" for="">
           <i class="fas fa-eye icon-modify"></i>
-          <input type="password" placeholder="Password" title="Password" />
+          <input id="lgn-pass" type="password" placeholder="Password" title="Password" />
         </label>
 
-        <button class="btn btn-login" name="login" type="submit" autofocus>
+        <button id="lgn-btn" class="btn btn-login" name="login" type="submit" autofocus>
           Entrar
         </button>
       </form>
@@ -40,6 +40,29 @@ export const home = () => {
       </p>
     </section> `;
   container.innerHTML = startLogIn;
+
+const emailLog = container.querySelector('#lgn-email')
+const passLog = container.querySelector('#lgn-pass')
+const btnStart = container.querySelector('#lgn-btn')
+
+btnStart.addEventListener('click', () => 
+  firebase.auth().singInWithEmailAndPassword(emailLog.value,
+    passLog.value).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessege = error.message;
+    alert('Não é um email válido')
+    })
+)
+
+firebase.auth().onAuthStateChanged(firebaseUser => {
+  if (firebaseUser) {
+    console.log(firebaseUser);
+  } else {
+    console.log('not logged in')
+  }
+})
+
   return container;
 };
 
@@ -56,7 +79,7 @@ export const register = () => {
       <label class="label-input" for="input-pass"></label>
       <input
       class="input-start"
-      id="input-pass"
+      id="crt-pass"
       type="password"
       placeholder="Password"
       />
@@ -65,54 +88,20 @@ export const register = () => {
     `;
   registerContainer.innerHTML = createRegister;
 
-  const emailUser = registerContainer.querySelector('#crt-email');
-  const passUser = registerContainer.querySelector('#crt-pass');
-  const btnLogin = registerContainer.querySelector('#crt-login');
+const emailUser = registerContainer.querySelector('#crt-email')
+const passUser = registerContainer.querySelector('#crt-pass')
+const btnLogin = registerContainer.querySelector('#crt-login')
 
-  btnLogin.addEventListener('click', () => {
-    firebase.auth().createUserWithEmailAndPassword(emailUser.value, 
+btnLogin.addEventListener('click', () => 
+  firebase.auth().createUserWithEmailAndPassword(emailUser.value,
     passUser.value).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessege = error.message;
-      alert('Não é um email válido')
-      })
-  })
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessege = error.message;
+    alert('Não é um email válido')
+    })
+)
   
   return registerContainer;
 };
 
-/* const emailUser = registerContainer.querySelector('#crt-email')
-const passUser = registerContainer.querySelector('#crt-pass')
-const btnLogin = registerContainer.querySelector('#crt-login')
-
-btnLogin.addEventListener('click', e => {
-  const email = emailUser.value;
-  const pass = passUser.value;
-  const auth = firebase.auth();
-  const promise = auth.createUserWithEmailAndPassword(email, pass);
-  promise
-  /* .then(user => console.log(user))  */
-/* .catch(e => console.log(e.message))
-});
-
-firebase.auth().onAuthStateChanged(firebaseUser => {
-  if (firebaseUser) {
-    console.log(firebaseUser);
-  } else {
-    console.log('not logged in')
-  }
-})   */
-
-/*  const name = container.querySelector('#name');
-  const greetingBtn = container.querySelector('#greeting-btn');
-  const greetingMessage = container.querySelector('#greeting-message');
-
-  greetingBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    greetingMessage.innerHTML = greeting(name.value);
-  });
-
-  return container;
-};
- */
