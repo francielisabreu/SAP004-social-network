@@ -1,5 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
-//import { greeting } from './data.js';
+import { signIn, createUser, userGoogle } from './data.js';
 //import { greeting } from './firebase.js';
 export const home = () => {
   const container = document.createElement('div');
@@ -19,6 +19,9 @@ export const home = () => {
         <button id="lgn-btn" class="btn btn-login" name="login" type="submit" autofocus>
           Entrar
         </button>
+        <button id="out-btn" class="btn btn-login" name="logout" type="submit" autofocus>
+          Sair
+        </button>
       </form>
       
       <section class="social-media">
@@ -30,7 +33,7 @@ export const home = () => {
           </a>
           <a class="link-social-media" href="#">
             <li class="item-social-media">
-              <i class="fab fa-google"></i>
+              <i id='btn-google' class="fab fa-google"></i>
             </li>
           </a>
         </ul>
@@ -41,19 +44,33 @@ export const home = () => {
     </section> `;
   container.innerHTML = startLogIn;
 
-const emailLog = container.querySelector('#lgn-email')
-const passLog = container.querySelector('#lgn-pass')
-const btnStart = container.querySelector('#lgn-btn')
+  const emailLog = container.querySelector('#lgn-email')
+  const passLog = container.querySelector('#lgn-pass')
+  const btnStart = container.querySelector('#lgn-btn')
+  const btnEnd = container.querySelector('#out-btn')
+  const btnGoogle = container.querySelector('#btn-google')
+
+btnGoogle.addEventListener('click', ()=> 
+userGoogle()
+/* var provider = new firebase.auth.GoogleAuthProvider();
+firebase.auth().signInWithPopup(provider).then(function(result) {
+  var token = result.credential.accessToken;
+  var user = result.user;
+}).catch(function(error) {
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  var email = error.email;
+  var credential = error.credential;
+}) */
+)
 
 btnStart.addEventListener('click', () => 
-  firebase.auth().singInWithEmailAndPassword(emailLog.value,
-    passLog.value).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessege = error.message;
-    alert('Não é um email válido')
-    })
+  signIn(emailLog.value, passLog.value)
 )
+
+btnEnd.addEventListener('click', ()=> {
+  firebase.auth().signOut();
+})
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
   if (firebaseUser) {
@@ -69,7 +86,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 export const register = () => {
   const registerContainer = document.createElement('div');
   const createRegister = `
-  <button id="out" class="btn btn-login">Voltar</button>
+  <a class="cadastre" href="#home"> Voltar </a>
     <h2>Crie uma conta</h2>
     <form action="">
       <label class="label-input" for="input-name"></label>
@@ -91,15 +108,11 @@ export const register = () => {
 const emailUser = registerContainer.querySelector('#crt-email')
 const passUser = registerContainer.querySelector('#crt-pass')
 const btnLogin = registerContainer.querySelector('#crt-login')
+const btnOut = registerContainer.querySelector('#out')
+
 
 btnLogin.addEventListener('click', () => 
-  firebase.auth().createUserWithEmailAndPassword(emailUser.value,
-    passUser.value).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessege = error.message;
-    alert('Não é um email válido')
-    })
+createUser(emailUser.value, passUser.value)
 )
   
   return registerContainer;
