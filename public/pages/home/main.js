@@ -15,9 +15,8 @@ export const home = () => {
           <i class="fas fa-eye icon-modify"></i>
           <input id="lgn-pass" type="password" placeholder="Password" title="Password" />
         </label>
-
         <button id="lgn-btn" class="btn btn-login" name="login" type="submit" autofocus>
-          Entrar
+        <a class="link-social-media" href="#logar">Entrar</a>
         </button>
         <button id="out-btn" class="btn btn-login" name="logout" type="submit" autofocus>
           Sair
@@ -67,7 +66,7 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
 btnStart.addEventListener('click', () => 
   signIn(emailLog.value, passLog.value)
 )
-
+  
 btnEnd.addEventListener('click', ()=> {
   firebase.auth().signOut();
 })
@@ -79,7 +78,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     console.log('not logged in')
   }
 })
-
   return container;
 };
 
@@ -117,4 +115,21 @@ createUser(emailUser.value, passUser.value)
   
   return registerContainer;
 };
-
+export const feed = () => {
+// colocar feed no body
+      `<header class="profile-bar">
+        <img src="assets/images/bardelas-icon.png" alt="pardelas-perfil">
+      </header>
+      <section class="post"> 
+        <label for=""></label>
+        <input type="text" id="write-post" class="write-post" placeholder="Qual drink você gostaria de nos mostrar?">
+        <label for="">Compartilhe conosco:</label>
+        <input type="file" class="img-post" id="img" name="img" accept="image/*">
+        <button class="btn-post"><a href="#feed">Postar</a></button>
+      </section>
+      <section class="feed">
+        <img src="assets/images/foto-perfil.jpg" alt="perfil" class="foto-perfil">
+        <p class="post-container">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quia, temporibus dolorum suscipit.</p>
+        <img src="assets/images/drink.jpg" alt="profile" class="foto-drink">
+      </section>`
+} 
