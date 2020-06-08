@@ -4,6 +4,7 @@ export const home = () => {
   const startLogIn = `
     <h2 class="description">Seja Bem Vinda!</h2>
     <form class="form" action="#" method="POST">
+    
         <label class="label-input">
           <i class="fas fa-at icon-modify"></i>
           <input id="lgn-email" type="email" placeholder="Email" title="Email" autocomplete="off" autofocus/>
