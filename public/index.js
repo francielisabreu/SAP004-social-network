@@ -2,7 +2,7 @@
 // import { home, registro } from './pages/home/main.js';
 import routes from './pages/home/routes.js';
 
-const main = document.querySelector('.form')
+const main = document.querySelector('.root')
 
 const init = () => {
   window.addEventListener('hashchange', () => {

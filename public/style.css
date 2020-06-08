@@ -35,10 +35,12 @@ body {
 }
 .img-page-login img {
   width: 100%;
-  margin-top: 0.3rem;
+  margin-top: 2rem;
   margin-left: 0.3rem;
   margin-right: 0.3rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 1.3rem;
+  padding: 1rem;
+  padding-top: 1rem;
   display: flex;
 }
 
@@ -104,13 +106,11 @@ input:-webkit-autofill {
   text-align: center;
   color: #8c3243;
 }
-
 .list-social-media {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .list-social-media a {
   color: silver;
 }
@@ -119,7 +119,7 @@ input:-webkit-autofill {
 }
 .btn {
   border-radius: 0.3rem;
-  margin-top: 1rem;
+  margin: 8px;
   padding: 10px 50px;
   font-size: 14px;
   font-weight: 500;
@@ -135,4 +135,18 @@ input:-webkit-autofill {
 }
 .cadastre {
   color: #8c3243;
+}
+#reset-login {
+  border-radius: 0.3rem;
+  margin: 8px;
+  padding: 10px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #8c3243;
 }

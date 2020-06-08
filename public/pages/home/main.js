@@ -4,6 +4,22 @@ import { signIn, createUser, userGoogle } from './data.js';
 export const home = () => {
   const container = document.createElement('div');
   const startLogIn = `
+  <section class="page-login">
+  <div class="img-page-login">
+    <img src="imagens/img_site_start_transparente-oficial.svg" alt="" 
+    maxwidth="300"
+    height="150"/>
+  </div>
+  <div class="logo-bardelas">
+    <img
+      src="imagens/bardelas-logo.svg"
+      alt=""
+      title="Bardelas"
+      maxwidth="100"
+      height="45"
+    />
+  </div>
+</section>
     <h2 class="description">Seja Bem Vinda!</h2>
     <form class="form" action="#" method="POST">
         <label class="label-input" for="">
@@ -12,17 +28,18 @@ export const home = () => {
         </label>
 
         <label class="label-input" for="">
-          <i class="fas fa-eye icon-modify"></i>
-          <input id="lgn-pass" type="password" placeholder="Password" title="Password" />
+        <i class="fas fa-lock icon-modify"></i>
+        <input id="lgn-pass" type="password" placeholder="Password" title="Password" />
         </label>
         <button id="lgn-btn" class="btn btn-login" name="login" type="submit" autofocus>
-        <a class="link-social-media" href="#logar">Entrar</a>
+        <a class="" href="#logar">Entrar</a>
         </button>
         <button id="out-btn" class="btn btn-login" name="logout" type="submit" autofocus>
           Sair
         </button>
       </form>
-      
+
+      <h2 class="description">Ou entre com...</h2>
       <section class="social-media">
         <ul class="list-social-media">
           <a class="link-social-media" href="#">
@@ -48,21 +65,10 @@ export const home = () => {
   const btnStart = container.querySelector('#lgn-btn')
   const btnEnd = container.querySelector('#out-btn')
   const btnGoogle = container.querySelector('#btn-google')
+  const btnFacebook = container.querySelector("#btn-facebook");
 
-btnGoogle.addEventListener('click', ()=> 
-userGoogle()
-/* var provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth().signInWithPopup(provider).then(function(result) {
-  var token = result.credential.accessToken;
-  var user = result.user;
-}).catch(function(error) {
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  var email = error.email;
-  var credential = error.credential;
-}) */
-)
-
+btnGoogle.addEventListener('click', ()=> userGoogle())
+btnFacebook.addEventListener("click", () => userFacebook());
 btnStart.addEventListener('click', () => 
   signIn(emailLog.value, passLog.value)
 )
@@ -73,9 +79,9 @@ btnEnd.addEventListener('click', ()=> {
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
   if (firebaseUser) {
-    console.log(firebaseUser);
+    console.log("usuário está conectado");
   } else {
-    console.log('not logged in')
+    console.log("Nenhum usuário está conectado");
   }
 })
   return container;
@@ -84,30 +90,34 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 export const register = () => {
   const registerContainer = document.createElement('div');
   const createRegister = `
-  <a class="cadastre" href="#home"> Voltar </a>
-    <h2>Crie uma conta</h2>
-    <form action="">
-      <label class="label-input" for="input-name"></label>
+  <h2 class="description">Crie uma conta</h2>
+    <form class="form"action="">
+      <label class="label-input" for="input-name">
+      <i class="fas fa-user-circle icon-modify"></i>
       <input id="crt-name" type="text" placeholder="Nome" />
-      <label class="label-input" for="input-email"></label>
-      <input id="crt-email" type="text" placeholder="E-mail" />
-      <label class="label-input" for="input-pass"></label>
-      <input
-      class="input-start"
-      id="crt-pass"
-      type="password"
-      placeholder="Password"
-      />
+      </label>
+
+      <label class="label-input" for="input-email">
+      <i class="fas fa-at icon-modify"></i>
+      <input id="crt-email" type="text" placeholder="E-mail"/>
+      </label>
+
+      <label class="label-input" for="input-pass">
+      <i class="fas fa-lock icon-modify"></i>
+      <input class="input-start" id="crt-pass" type="password" placeholder="Password"
+      autocomplete="off"/>
+      </label>
+
+      <input type="reset" id="reset-login" name="limpar" value="Limpar"> 
+      <button id="crt-login" class="btn btn-login">Criar</button>
     </form>
-    <button id="crt-login" class="btn btn-login">Criar</button>
+    <a class=" description cadastre" href="#home"> Voltar </a>
     `;
   registerContainer.innerHTML = createRegister;
 
 const emailUser = registerContainer.querySelector('#crt-email')
 const passUser = registerContainer.querySelector('#crt-pass')
 const btnLogin = registerContainer.querySelector('#crt-login')
-const btnOut = registerContainer.querySelector('#out')
-
 
 btnLogin.addEventListener('click', () => 
 createUser(emailUser.value, passUser.value)
