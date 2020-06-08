@@ -1,5 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
-import { signIn, createUser, userGoogle } from './data.js';
+import { signIn, createUser, userFacebook, userGoogle} from './data.js';
 //import { greeting } from './firebase.js';
 export const home = () => {
   const container = document.createElement('div');
@@ -43,9 +43,9 @@ export const home = () => {
       <section class="social-media">
         <ul class="list-social-media">
           <a class="link-social-media" href="#">
-            <li class="item-social-media">
-              <i class="fab fa-facebook-f"></i>
-            </li>
+          <li class="item-social-media">
+          <i id='btn-facebook' class="fab fa-facebook-f"></i>
+        </li>
           </a>
           <a class="link-social-media" href="#">
             <li class="item-social-media">
@@ -64,11 +64,11 @@ export const home = () => {
   const passLog = container.querySelector('#lgn-pass')
   const btnStart = container.querySelector('#lgn-btn')
   const btnEnd = container.querySelector('#out-btn')
+  const btnFacebook = container.querySelector("#btn-facebook")
   const btnGoogle = container.querySelector('#btn-google')
-  const btnFacebook = container.querySelector("#btn-facebook");
 
+btnFacebook.addEventListener('click', () => userFacebook())
 btnGoogle.addEventListener('click', ()=> userGoogle())
-btnFacebook.addEventListener("click", () => userFacebook());
 btnStart.addEventListener('click', () => 
   signIn(emailLog.value, passLog.value)
 )
@@ -125,6 +125,7 @@ createUser(emailUser.value, passUser.value)
   
   return registerContainer;
 };
+
 export const feed = () => {
 // colocar feed no body
       `<header class="profile-bar">
