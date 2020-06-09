@@ -152,7 +152,7 @@ export const feed = () => {
         <input type="text" id="write-post" class="write-post" placeholder="Qual drink você gostaria de nos mostrar?">
         <label for="">Compartilhe conosco:</label>
         <input type="file" class="img-post" id="img" name="img" accept="image/*">
-        <button class="btn-post"><a href="#feed">Postar</a></button>
+        <button class="btn-post"><a class="link-btn" href="#feed">Postar</a></button>
       </section>
       <section class="feed">
         <img src="assets/images/foto-perfil.jpg" alt="perfil" class="foto-perfil">
