@@ -150,3 +150,7 @@ input:-webkit-autofill {
   color: #ffffff;
   background-color: #8c3243;
 }
+/* Começo do estilo do feed */
+.link-btn {
+  color: #ffffff;
+}

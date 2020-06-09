@@ -4,22 +4,22 @@ import { signIn, createUser, userFacebook, userGoogle} from './data.js';
 export const home = () => {
   const container = document.createElement('div');
   const startLogIn = `
-  <section class="page-login">
-  <div class="img-page-login">
-    <img src="imagens/img_site_start_transparente-oficial.svg" alt="" 
-    maxwidth="300"
-    height="150"/>
-  </div>
-  <div class="logo-bardelas">
-    <img
-      src="imagens/bardelas-logo.svg"
-      alt=""
-      title="Bardelas"
-      maxwidth="100"
-      height="45"
-    />
-  </div>
-</section>
+    <section class="page-login">
+      <div class="img-page-login">
+        <img src="imagens/img_site_start_transparente-oficial.svg" alt="" 
+        maxwidth="300"
+        height="150"/>
+      </div>
+      <div class="logo-bardelas">
+        <img
+          src="imagens/bardelas-logo.svg"
+          alt=""
+          title="Bardelas"
+          maxwidth="100"
+          height="45"
+        />
+      </div>
+    </section>
     <h2 class="description">Seja Bem Vinda!</h2>
     <form class="form" action="#" method="POST">
         <label class="label-input" for="">
@@ -32,7 +32,7 @@ export const home = () => {
         <input id="lgn-pass" type="password" placeholder="Password" title="Password" />
         </label>
         <button id="lgn-btn" class="btn btn-login" name="login" type="submit" autofocus>
-        <a class="" href="#logar">Entrar</a>
+        <a class="link-btn" href="#logar">Entrar</a>
         </button>
         <button id="out-btn" class="btn btn-login" name="logout" type="submit" autofocus>
           Sair
@@ -90,6 +90,22 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 export const register = () => {
   const registerContainer = document.createElement('div');
   const createRegister = `
+  <section class="page-login">
+    <div class="img-page-login">
+      <img src="imagens/img_site_start_transparente-oficial.svg" alt="" 
+      maxwidth="300"
+      height="150"/>
+    </div>
+    <div class="logo-bardelas">
+      <img
+        src="imagens/bardelas-logo.svg"
+        alt=""
+        title="Bardelas"
+        maxwidth="100"
+        height="45"
+      />
+    </div>
+  </section>
   <h2 class="description">Crie uma conta</h2>
     <form class="form"action="">
       <label class="label-input" for="input-name">
@@ -127,8 +143,8 @@ createUser(emailUser.value, passUser.value)
 };
 
 export const feed = () => {
-// colocar feed no body
-      `<header class="profile-bar">
+  const creatFeed = document.createElement('div');
+  creatFeed.innerHTML = `<header class="profile-bar">
         <img src="assets/images/bardelas-icon.png" alt="pardelas-perfil">
       </header>
       <section class="post"> 
@@ -143,4 +159,5 @@ export const feed = () => {
         <p class="post-container">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quia, temporibus dolorum suscipit.</p>
         <img src="assets/images/drink.jpg" alt="profile" class="foto-drink">
       </section>`
+      return creatFeed
 } 

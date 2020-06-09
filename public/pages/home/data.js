@@ -2,7 +2,7 @@
 
 //export const greeting = name => `Oi ${name}! Que bom ver você aqui!`;
 
-export function signIn (emailLog, passLog) { firebase.auth().singInWithEmailAndPassword(emailLog,
+export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndPassword(emailLog,
     passLog).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -22,17 +22,17 @@ export function createUser (emailUser, passUser) {firebase.auth().createUserWith
 
 export function userFacebook() {
         var provider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-          var token = result.credential.accessToken;
-          var user = result.user;
-          }).catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          var email = error.email;
-          var credential = error.credential;
-          })
-      } 
-      
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+        var token = result.credential.accessToken;
+        var user = result.user;
+        }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+        })
+    } 
+
 export function userGoogle () {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -45,5 +45,3 @@ export function userGoogle () {
     var credential = error.credential;
     })
 }    
-
- 

@@ -5,7 +5,8 @@ import routes from './pages/home/routes.js';
 const main = document.querySelector('.root')
 
 const init = () => {
-  window.addEventListener('hashchange', () => {
+  window.addEventListener('hashchange', (e) => {
+    e.preventDefault();
     renderPage();
   })
 };
@@ -13,6 +14,7 @@ const init = () => {
 const renderPage = () =>{
   main.innerHTML = '';
   const page = validateHash(window.location.hash);
+  console.log(page)
   main.appendChild(routes[page]);
 };
 
