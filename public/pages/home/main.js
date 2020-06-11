@@ -1,5 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
-import { signIn, createUser, userFacebook, userGoogle} from './data.js';
+import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts} from './data.js';
 //import { greeting } from './firebase.js';
 export const home = () => {
   const container = document.createElement('div');
@@ -66,13 +66,15 @@ export const home = () => {
   const btnEnd = container.querySelector('#out-btn')
   const btnFacebook = container.querySelector("#btn-facebook")
   const btnGoogle = container.querySelector('#btn-google')
+  /* const rootFeed = '#logar' */
 
-btnFacebook.addEventListener('click', () => userFacebook())
-btnGoogle.addEventListener('click', ()=> userGoogle())
 btnStart.addEventListener('click', () => 
   signIn(emailLog.value, passLog.value)
 )
-  
+
+btnFacebook.addEventListener('click', () => userFacebook())
+btnGoogle.addEventListener('click', ()=> userGoogle())
+
 btnEnd.addEventListener('click', ()=> {
   firebase.auth().signOut();
 })
@@ -143,21 +145,49 @@ createUser(emailUser.value, passUser.value)
 };
 
 export const feed = () => {
-  const creatFeed = document.createElement('div');
-  creatFeed.innerHTML = `<header class="profile-bar">
-        <img src="assets/images/bardelas-icon.png" alt="pardelas-perfil">
-      </header>
-      <section class="post"> 
-        <label for=""></label>
-        <input type="text" id="write-post" class="write-post" placeholder="Qual drink você gostaria de nos mostrar?">
-        <label for="">Compartilhe conosco:</label>
-        <input type="file" class="img-post" id="img" name="img" accept="image/*">
-        <button class="btn-post"><a class="link-btn" href="#feed">Postar</a></button>
-      </section>
-      <section class="feed">
-        <img src="assets/images/foto-perfil.jpg" alt="perfil" class="foto-perfil">
-        <p class="post-container">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quia, temporibus dolorum suscipit.</p>
-        <img src="assets/images/drink.jpg" alt="profile" class="foto-drink">
-      </section>`
-      return creatFeed
+  const divFeed = document.createElement('div');
+  const createFeed = `
+  <header class="profile-bar">
+    <img src="assets/images/bardelas-icon.png" alt="pardelas-perfil">
+  </header>
+  <section class="post"> 
+    <form class="" id="">
+      <label for="write-post">
+        <textarea id="wrt-post" class="textarea" type="text" for="write-post" placeholder=""  rows="5" cols="33" autocomplete="off" 
+        autofocus maxlength="2000" readonly spellcheck="true" wrap="hard"></textarea>
+      </label>
+      <label class="">Compartilhe conosco:</label>
+      <input type="file" class="img-post" id="img" name="img" accept="image/*">
+      <button id="btn-pst" class="btn-post" type="submite">
+        <a class="link-btn" href="#feed">Postar</a>
+      </button>
+  </section>
+
+  <section class="feed">
+    <img src="assets/images/foto-perfil.jpg" alt="perfil" class="foto-perfil">        
+    <img src="assets/images/drink.jpg" alt="profile" class="foto-drink">
+  </section>
+  <div id="all-posts"></div>
+  `;
+
+  divFeed.innerHTML = createFeed;
+
+  const postText = divFeed.querySelector('#wrt-post')
+  const postBtn = divFeed.querySelector('#btn-pst')
+  const postArea = divFeed.querySelector('#all-posts')
+
+  postBtn.addEventListener('click', (event) =>{
+    event.preventDefault();
+    newPost(postText.value);
+    postArea.innerHTML = ''; 
+    feedPosts(postDrinks);
+  })
+
+  const postDrinks = (arrayDrinks) => {
+    postArea.innerHTML = arrayDrinks.map(posts `<p>{posts.text}</p>`).join('')
+  }
+
+      return divFeed
 } 
+
+
