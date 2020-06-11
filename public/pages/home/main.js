@@ -66,11 +66,11 @@ export const home = () => {
   const btnEnd = container.querySelector('#out-btn')
   const btnFacebook = container.querySelector("#btn-facebook")
   const btnGoogle = container.querySelector('#btn-google')
-  /* const rootFeed = '#logar' */
+  const rootFeed = container.querySelector('#logar')
 
-btnStart.addEventListener('click', () => 
-  signIn(emailLog.value, passLog.value)
-)
+btnStart.addEventListener('click', () => {
+  signIn(emailLog.value, passLog.value, rootFeed)
+})
 
 btnFacebook.addEventListener('click', () => userFacebook())
 btnGoogle.addEventListener('click', ()=> userGoogle())
@@ -148,18 +148,18 @@ export const feed = () => {
   const divFeed = document.createElement('div');
   const createFeed = `
   <header class="profile-bar">
-    <img src="assets/images/bardelas-icon.png" alt="pardelas-perfil">
+    <img src="assets/images/bardelas-icon.png" alt="bardelas-perfil">
   </header>
   <section class="post"> 
     <form class="" id="">
       <label for="write-post">
         <textarea id="wrt-post" class="textarea" type="text" for="write-post" placeholder=""  rows="5" cols="33" autocomplete="off" 
-        autofocus maxlength="2000" readonly spellcheck="true" wrap="hard"></textarea>
+        autofocus maxlength="2000" spellcheck="true" wrap="hard"></textarea>
       </label>
       <label class="">Compartilhe conosco:</label>
       <input type="file" class="img-post" id="img" name="img" accept="image/*">
       <button id="btn-pst" class="btn-post" type="submite">
-        <a class="link-btn" href="#feed">Postar</a>
+        Postar
       </button>
   </section>
 
@@ -184,7 +184,7 @@ export const feed = () => {
   })
 
   const postDrinks = (arrayDrinks) => {
-    postArea.innerHTML = arrayDrinks.map(posts `<p>{posts.text}</p>`).join('')
+    postArea.innerHTML = arrayDrinks.map(posts `<p>${posts.text}</p>`).join('')
   }
 
       return divFeed

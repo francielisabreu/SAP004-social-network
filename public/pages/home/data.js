@@ -1,10 +1,10 @@
 // Aqui serão exportadas as funções que irão ser usadas
 
-export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndPassword(emailLog,
+export function signIn (emailLog, passLog, rootFeed) { firebase.auth().signInWithEmailAndPassword(emailLog,
     passLog)
     .then(function(result){
         var user = result.user;
-        window.location.hash = '#logar'
+        window.location.hash = rootFeed;
     })
     .catch(function(error) {
     // Handle Errors here.

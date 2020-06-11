@@ -14,7 +14,6 @@ const init = () => {
 const renderPage = () =>{
   main.innerHTML = '';
   const page = validateHash(window.location.hash);
-  console.log(page)
   main.appendChild(routes[page]);
 };
 
