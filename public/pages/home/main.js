@@ -147,26 +147,46 @@ createUser(emailUser.value, passUser.value)
 export const feed = () => {
   const divFeed = document.createElement('div');
   const createFeed = `
-  <header class="profile-bar">
-    <img src="assets/images/bardelas-icon.png" alt="bardelas-perfil">
-  </header>
-  <section class="post"> 
-    <form class="" id="">
-      <label for="write-post">
-        <textarea id="wrt-post" class="textarea" type="text" for="write-post" placeholder=""  rows="5" cols="33" autocomplete="off" 
-        autofocus maxlength="2000" spellcheck="true" wrap="hard"></textarea>
-      </label>
-      <label class="">Compartilhe conosco:</label>
-      <input type="file" class="img-post" id="img" name="img" accept="image/*">
-      <button id="btn-pst" class="btn-post" type="submite">
-        Postar
-      </button>
-  </section>
+  <header class="header-bg">      
+         <nav class="menu-nav">
+          <ul>
+            <li>
+              <a href="#" role="button" aria-pressed="true">Maria</a>
+            </li>
+            <li>
+            <a href="#" class="menu-logo">
+              <img src="imagens/bardelas-logo.svg" alt="logo Bardelas" title="Bardelas" > 
+              </a>
+            </li>
+            <li>
+              <a id="end-btn" href="#" role="button" aria-pressed="true">Encerrar Sessão</a>
+            </li>
+          </ul>      
+    </header>
 
-  <section class="feed">
-    <img src="assets/images/foto-perfil.jpg" alt="perfil" class="foto-perfil">        
-    <img src="assets/images/drink.jpg" alt="profile" class="foto-drink">
-  </section>
+    <main class="main">
+      <!-----formulario de postagem----->
+      <div class="newPost"> 
+        <div class="infoUser">
+          <div class="imgUser"></div> 
+            <strong>Maria</strong>
+        </div>        
+          <form class="formPost">      
+           <textarea id="wrt-post" class="textarea-form"type="text" placeholder="Diga o seu drink  favorito"   autocomplete="off"  maxlength="200" spellcheck="true" 
+            resize="none"> 
+            </textarea> 
+
+            <div class="iconsAndButton">
+            <div class="icons">
+              <input type="file" name="upload" accept="jpeg"/>
+              <img src="imagens/img-feed.svg" alt="adicionar imagem">
+                      
+            </div>
+            <button type="submit" id="btn-pst" class="btnForm btn-feed"> Compartilhar </button>
+            </div>   
+          </form>
+      </div>
+  </main>
   <div id="all-posts"></div>
   `;
 
@@ -175,6 +195,11 @@ export const feed = () => {
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
   const postArea = divFeed.querySelector('#all-posts')
+  const btnSair = divFeed.querySelector('#end-btn')
+
+  btnSair.addEventListener('click', ()=> {
+    firebase.auth().signOut();
+  })
 
   postBtn.addEventListener('click', (event) =>{
     event.preventDefault();
