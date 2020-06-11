@@ -1,9 +1,12 @@
 // Aqui serão exportadas as funções que irão ser usadas
 
-//export const greeting = name => `Oi ${name}! Que bom ver você aqui!`;
-
 export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndPassword(emailLog,
-    passLog).catch(function(error) {
+    passLog)
+    .then(function(result){
+        var user = result.user;
+        window.location.hash = '#logar'
+    })
+    .catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessege = error.message;
@@ -45,3 +48,31 @@ export function userGoogle () {
     var credential = error.credential;
     })
 }    
+
+export const newPost = () => {
+    firebase.firestore().collection("posts").add({
+        user_name: '',
+        text: text,
+        likes: 0,
+        comments: []
+    })
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+}
+
+export const feedPosts = (callback) => {
+    firebase.firestore().collection("posts")
+    .onSnapshot(function(querySnapshot) {
+        var drinks = [];
+        querySnapshot.forEach(function(doc) {
+        drinks.push(doc.data());
+        });
+        callback(drinks)
+        //console.log("Current cities in CA: ", cities.join(", "));
+    });
+}
+
