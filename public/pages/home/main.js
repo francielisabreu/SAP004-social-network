@@ -32,7 +32,7 @@ export const home = () => {
         <input id="lgn-pass" type="password" placeholder="Password" title="Password" />
         </label>
         <button id="lgn-btn" class="btn btn-login" name="login" type="submit" autofocus>
-        <a class="link-btn" href="#logar">Entrar</a>
+        Entrar
         </button>
         <button id="out-btn" class="btn btn-login" name="logout" type="submit" autofocus>
           Sair
@@ -66,10 +66,10 @@ export const home = () => {
   const btnEnd = container.querySelector('#out-btn')
   const btnFacebook = container.querySelector("#btn-facebook")
   const btnGoogle = container.querySelector('#btn-google')
-  const rootFeed = container.querySelector('#logar')
 
-btnStart.addEventListener('click', () => {
-  signIn(emailLog.value, passLog.value, rootFeed)
+btnStart.addEventListener('click', (event) => {
+  event.preventDefault();
+  signIn(emailLog.value, passLog.value)
 })
 
 btnFacebook.addEventListener('click', () => userFacebook())
@@ -179,8 +179,7 @@ export const feed = () => {
             <div class="iconsAndButton">
             <div class="icons">
               <input type="file" name="upload" accept="jpeg"/>
-              <img src="imagens/img-feed.svg" alt="adicionar imagem">
-                      
+              <img src="imagens/img-feed.svg" alt="adicionar imagem">       
             </div>
             <button type="submit" id="btn-pst" class="btnForm btn-feed"> Compartilhar </button>
             </div>   
@@ -209,10 +208,8 @@ export const feed = () => {
   })
 
   const postDrinks = (arrayDrinks) => {
-    postArea.innerHTML = arrayDrinks.map(posts `<p>${posts.text}</p>`).join('')
+    postArea.innerHTML = arrayDrinks.map(posts => `<p>${posts.text}</p>`).join('')
   }
 
       return divFeed
-} 
-
-
+};
