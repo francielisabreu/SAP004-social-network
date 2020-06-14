@@ -4,7 +4,7 @@ export function signIn (emailLog, passLog, rootFeed) { firebase.auth().signInWit
     passLog)
     .then(function(result){
         var user = result.user;
-        window.location.hash = rootFeed;
+        window.location.hash = "#logar";
     })
     .catch(function(error) {
     // Handle Errors here.
@@ -49,7 +49,7 @@ export function userGoogle () {
     })
 }    
 
-export const newPost = () => {
+export const newPost = (text) => {
     firebase.firestore().collection("posts").add({
         user_name: '',
         text: text,

@@ -32,7 +32,7 @@ export const home = () => {
         <input id="lgn-pass" type="password" placeholder="Password" title="Password" />
         </label>
         <button id="lgn-btn" class="btn btn-login" name="login" type="submit" autofocus>
-        <a class="link-btn" href="#logar">Entrar</a>
+        Entrar
         </button>
         <button id="out-btn" class="btn btn-login" name="logout" type="submit" autofocus>
           Sair
@@ -66,10 +66,10 @@ export const home = () => {
   const btnEnd = container.querySelector('#out-btn')
   const btnFacebook = container.querySelector("#btn-facebook")
   const btnGoogle = container.querySelector('#btn-google')
-  const rootFeed = container.querySelector('#logar')
 
-btnStart.addEventListener('click', () => {
-  signIn(emailLog.value, passLog.value, rootFeed)
+btnStart.addEventListener('click', (event) => {
+  event.preventDefault();
+  signIn(emailLog.value, passLog.value)
 })
 
 btnFacebook.addEventListener('click', () => userFacebook())
@@ -147,27 +147,46 @@ createUser(emailUser.value, passUser.value)
 export const feed = () => {
   const divFeed = document.createElement('div');
   const createFeed = `
-  <header class="profile-bar">
-    <img src="assets/images/bardelas-icon.png" alt="bardelas-perfil">
+  <header class="header-bg">      
+    <nav class="menu-nav">
+      <ul>
+        <li>
+          <a href="#" role="button" aria-pressed="true">Maria</a>
+        </li>
+        <li>
+          <a href="#" class="menu-logo">
+          <img src="imagens/bardelas-logo.svg" alt="logo Bardelas" title="Bardelas" > 
+          </a>
+        </li>
+        <li>
+          <a href="#" role="button" aria-pressed="true">Encerrar Sessão</a>
+        </li>
+      </ul>      
   </header>
-  <section class="post"> 
-    <form class="" id="">
-      <label for="write-post">
-        <textarea id="wrt-post" class="textarea" type="text" for="write-post" placeholder=""  rows="5" cols="33" autocomplete="off" 
-        autofocus maxlength="2000" spellcheck="true" wrap="hard"></textarea>
-      </label>
-      <label class="">Compartilhe conosco:</label>
-      <input type="file" class="img-post" id="img" name="img" accept="image/*">
-      <button id="btn-pst" class="btn-post" type="submite">
-        Postar
-      </button>
-  </section>
 
-  <section class="feed">
-    <img src="assets/images/foto-perfil.jpg" alt="perfil" class="foto-perfil">        
-    <img src="assets/images/drink.jpg" alt="profile" class="foto-drink">
-  </section>
-  <div id="all-posts"></div>
+    <main class="main">
+      <!-----formulario de postagem----->
+      <div class="newPost"> 
+        <div class="infoUser">
+          <div class="imgUser"></div> 
+            <strong>Maria</strong>
+        </div>        
+          <form class="formPost">      
+            <textarea id="wrt-post" class="textarea-form"type="text" placeholder="Diga o seu drink  favorito"   autocomplete="off"  maxlength="200" spellcheck="true" 
+            resize="none"> 
+            </textarea> 
+
+            <div class="iconsAndButton">
+              <div class="icons">
+                <input type="file" name="upload" accept="jpeg"/>
+                <img src="imagens/img-feed.svg" alt="adicionar imagem">
+              </div>
+            <button type="submit" id="btn-pst" class="btnForm btn-feed"> Compartilhar </button>
+            </div>   
+          </form>
+      </div>
+    </main>
+    <div id="all-posts"></div>
   `;
 
   divFeed.innerHTML = createFeed;
@@ -184,10 +203,8 @@ export const feed = () => {
   })
 
   const postDrinks = (arrayDrinks) => {
-    postArea.innerHTML = arrayDrinks.map(posts `<p>${posts.text}</p>`).join('')
+    postArea.innerHTML = arrayDrinks.map(posts => `<p>${posts.text}</p>`).join('')
   }
 
       return divFeed
-} 
-
-
+};
