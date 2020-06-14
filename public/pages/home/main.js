@@ -148,21 +148,21 @@ export const feed = () => {
   const divFeed = document.createElement('div');
   const createFeed = `
   <header class="header-bg">      
-    <nav class="menu-nav">
-      <ul>
-        <li>
-          <a href="#" role="button" aria-pressed="true">Maria</a>
-        </li>
-        <li>
-          <a href="#" class="menu-logo">
-          <img src="imagens/bardelas-logo.svg" alt="logo Bardelas" title="Bardelas" > 
-          </a>
-        </li>
-        <li>
-          <a href="#" role="button" aria-pressed="true">Encerrar Sessão</a>
-        </li>
-      </ul>      
-  </header>
+         <nav class="menu-nav">
+          <ul>
+            <li>
+              <a href="#" role="button" aria-pressed="true">Maria</a>
+            </li>
+            <li>
+            <a href="#" class="menu-logo">
+              <img src="imagens/bardelas-logo.svg" alt="logo Bardelas" title="Bardelas" > 
+              </a>
+            </li>
+            <li>
+              <a id="end-btn" href="#" role="button" aria-pressed="true">Encerrar Sessão</a>
+            </li>
+          </ul>      
+    </header>
 
     <main class="main">
       <!-----formulario de postagem----->
@@ -172,21 +172,21 @@ export const feed = () => {
             <strong>Maria</strong>
         </div>        
           <form class="formPost">      
-            <textarea id="wrt-post" class="textarea-form"type="text" placeholder="Diga o seu drink  favorito"   autocomplete="off"  maxlength="200" spellcheck="true" 
+           <textarea id="wrt-post" class="textarea-form"type="text" placeholder="Diga o seu drink  favorito"   autocomplete="off"  maxlength="200" spellcheck="true" 
             resize="none"> 
             </textarea> 
 
             <div class="iconsAndButton">
-              <div class="icons">
-                <input type="file" name="upload" accept="jpeg"/>
-                <img src="imagens/img-feed.svg" alt="adicionar imagem">
-              </div>
+            <div class="icons">
+              <input type="file" name="upload" accept="jpeg"/>
+              <img src="imagens/img-feed.svg" alt="adicionar imagem">       
+            </div>
             <button type="submit" id="btn-pst" class="btnForm btn-feed"> Compartilhar </button>
             </div>   
           </form>
       </div>
-    </main>
-    <div id="all-posts"></div>
+  </main>
+  <div id="all-posts"></div>
   `;
 
   divFeed.innerHTML = createFeed;
@@ -194,6 +194,11 @@ export const feed = () => {
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
   const postArea = divFeed.querySelector('#all-posts')
+  const btnSair = divFeed.querySelector('#end-btn')
+
+  btnSair.addEventListener('click', ()=> {
+    firebase.auth().signOut();
+  })
 
   postBtn.addEventListener('click', (event) =>{
     event.preventDefault();
