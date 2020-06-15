@@ -13,8 +13,7 @@ ul {
   list-style: none;
 }
 html,
-body,
-main {
+body {
   width: 100%;
   height: 100%;
 }
@@ -23,16 +22,7 @@ body {
   line-height: 1.5;
   font-family: "Roboto", sans-serif, arial, Helvetica;
 }
-.container {
-  width: 100%;
-  display: flex;
-  width: 100%;
-  padding: 0 auto;
-  margin-top: 0.3rem;
-  margin-left: 0.3rem;
-  margin-right: 0.3rem;
-  margin-bottom: 0.3rem;
-}
+
 .img-page-login img {
   width: 100%;
   margin-top: 2rem;
@@ -151,124 +141,3 @@ input:-webkit-autofill {
   background-color: #8c3243;
 }
 /* Começo do estilo do feed */
-.header-bg {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 0px auto;
-  padding: 15px;
-  background-color: #f1f1f1;
-  box-shadow: 1px 0 3px rgba(0, 0, 0, 4);
-}
-.header-bg img {
-  width: 100px;
-  height: 45px;
-}
-.menu-nav {
-  display: block;
-}
-.menu-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  font-weight: bolder;
-}
-.menu-nav a {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  font-weight: 300;
-  align-content: center;
-  text-align: center;
-  margin: 0px 15px;
-  cursor: pointer;
-  color: #77001a;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-.menu-logo {
-  margin: 0px 15px;
-}
-
-.icons img {
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-}
-.main {
-  flex-wrap: wrap;
-  max-width: 900px;
-  margin: 0 auto;
-}
-div.newPost {
-  width: 100%;
-  height: 250px;
-  margin: 50px;
-  padding: 25px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: flex-start;
-  background: #fff;
-  border-radius: 9px;
-  box-shadow: 1px 0 3px rgba(0, 0, 0, 2);
-}
-div.newPost div.infoUser {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
-div.newPost div.infoUser div.imgUser {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background: #333;
-  margin: 0 auto;
-  padding: 0 auto;
-}
-div.newPost div.infoUser strong {
-  font-size: 16px;
-  color: #77001a;
-  margin-left: 10px;
-}
-div.newPost form.formPost {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-form.formPost .textarea-form {
-  border-radius: 9px;
-  background: #fbfbfb;
-  margin: 15px 0;
-  padding: 25px;
-  resize: none;
-  border-color: #77001a;
-  outline: none;
-  font-weight: bolder;
-  color: #727272;
-  font-family: "roboto", Arial, Helvetica, sans-serif;
-}
-div.newPost form.formPost div.iconsAndButton {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.btn-form {
-  margin-right: 14px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-}
-.btn-feed {
-  background-color: #77001a;
-  color: #fff;
-  border-radius: 8px;
-  padding: 10px 30px;
-  font-weight: bolder;
-  outline: none;
-  cursor: pointer;
-}
