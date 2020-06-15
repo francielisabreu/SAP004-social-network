@@ -133,13 +133,16 @@ export const register = () => {
     `;
   registerContainer.innerHTML = createRegister;
 
+const nameUser = registerContainer.querySelector('#crt-name')  
 const emailUser = registerContainer.querySelector('#crt-email')
 const passUser = registerContainer.querySelector('#crt-pass')
 const btnLogin = registerContainer.querySelector('#crt-login')
 
-btnLogin.addEventListener('click', () => 
-createUser(emailUser.value, passUser.value)
-)
+btnLogin.addEventListener('click', (event) => {
+  event.preventDefault();
+  createUser(emailUser.value, passUser.value, nameUser.value)
+  })
+
   
   return registerContainer;
 };
@@ -147,46 +150,79 @@ createUser(emailUser.value, passUser.value)
 export const feed = () => {
   const divFeed = document.createElement('div');
   const createFeed = `
-  <header class="header-bg">      
-         <nav class="menu-nav">
-          <ul>
-            <li>
-              <a href="#" role="button" aria-pressed="true">Maria</a>
-            </li>
-            <li>
-            <a href="#" class="menu-logo">
-              <img src="imagens/bardelas-logo.svg" alt="logo Bardelas" title="Bardelas" > 
-              </a>
-            </li>
-            <li>
-              <a id="end-btn" href="#" role="button" aria-pressed="true">Encerrar Sessão</a>
-            </li>
-          </ul>      
-    </header>
-
-    <main class="main">
-      <!-----formulario de postagem----->
-      <div class="newPost"> 
-        <div class="infoUser">
-          <div class="imgUser"></div> 
-            <strong>Maria</strong>
-        </div>        
-          <form class="formPost">      
-           <textarea id="wrt-post" class="textarea-form"type="text" placeholder="Diga o seu drink  favorito"   autocomplete="off"  maxlength="200" spellcheck="true" 
-            resize="none"> 
-            </textarea> 
-
-            <div class="iconsAndButton">
-            <div class="icons">
-              <input type="file" name="upload" accept="jpeg"/>
-              <img src="imagens/img-feed.svg" alt="adicionar imagem">       
-            </div>
-            <button type="submit" id="btn-pst" class="btnForm btn-feed"> Compartilhar </button>
-            </div>   
-          </form>
+    <nav id="nav">
+      <div class="logo">
+        <a href="">
+          <img
+            src="imagens/bardelas-icon.png"
+            alt="Bardelas"
+            title="Bardelas"
+          />
+        </a>
       </div>
-  </main>
-  <div id="all-posts"></div>
+      <ul class="nav-links">
+        <li>
+          <a href="#"><strong>Maria</strong> <i class="fas fa-caret-down"></i></a>
+        </li>
+        <li>
+          <a id="end-btn" href="#">Sair <i class="fas fa-sign-out-alt"></i></a>
+        </li>
+      </ul>
+      <div class="menu-burguer">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+    <main class="main">
+      <div class="newPost">
+        <div class="infoUser">
+          <div class="imgUser"></div>
+          <strong class="nameUser">Maria</strong>
+        </div>
+        <form class="formPost" action="#" method="POST">
+          <textarea
+            name="textearea"
+            id="wrt-post"
+            placeholder="Compartilhe as suas bebidas favoritas aqui!"
+          ></textarea>
+          <div class="iconButtons">
+            <div class="icons">
+              <button type="button"class="btnFileForm" title="upload de imagem">
+                <i class="fas fa-image "></i>
+              </button>
+              <button  type="button" class="btnFileForm" title="post privado">
+                <i class="fas fa-user-lock"></i>
+              </button>
+            </div>
+            <button id="btn-pst" type="submit" class="btnSubmit">Publicar</button>
+          </div>
+        </form>
+      </div>
+      
+        <ul class="posts">
+          <li class="post">
+          <div class="infoUserPost">
+            <div class="imgUserPost"></div>
+            <div class="nameAndHour">
+              <strong class="nameUser">Maria</strong>
+              <p class="hourPost">21h</p>
+            </div>
+          </div>
+          <p class="comentUser">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper nunc scelerisque cursus tincidunt. Vestibulum id urna eget orci molestie lobortis.
+          </p>
+          <div class="actionBtnPost">
+            <button type="button" class="btnreaction like"><i class="fas fa-heart iconPost" title="Curtir"></i> </button>
+            <button type="button" class="btnreaction coments" title="Comentar"><i class="fas fa-comments iconPost"></i> </button>
+            <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
+            <button type="button" class="btnreaction delete" title="Excluir"> <i class="fas fa-trash-alt iconPost"></i> </button>
+          </div>
+          <button type="submit"></button>
+          </li>
+        </ul>
+      </div>
+    </main>
   `;
 
   divFeed.innerHTML = createFeed;

@@ -14,14 +14,38 @@ export function signIn (emailLog, passLog, rootFeed) { firebase.auth().signInWit
     })
 }
 
-export function createUser (emailUser, passUser) {firebase.auth().createUserWithEmailAndPassword(emailUser,
+/* export function createUser (emailUser, passUser) {firebase.auth().createUserWithEmailAndPassword(emailUser,
         passUser).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessege = error.message;
         alert('Não é um email válido')
         })
-    }
+    } */
+
+    export function createUser (emailUser, passUser, nameUser) {
+        console.log('cliquei')
+        firebase.auth().createUserWithEmailAndPassword(emailUser,
+        passUser)
+        
+        .then(data =>{
+            const users = firebase.firestore().collection('users');
+            users.doc(data.user.uid).set({
+                id_user: data.user.uid,
+                email: emailUser,
+                displayName: nameUser,
+                
+            });
+          alert('Conta criada com sucesso')  
+        
+        })
+        .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessege = error.message;
+        alert('Não é um email válido')
+        })
+    }    
 
 export function userFacebook() {
         var provider = new firebase.auth.FacebookAuthProvider();
@@ -69,7 +93,7 @@ export const feedPosts = (callback) => {
     .onSnapshot(function(querySnapshot) {
         var drinks = [];
         querySnapshot.forEach(function(doc) {
-        drinks.push(doc.data());
+         drinks.push(doc.data());
         });
         callback(drinks)
         //console.log("Current cities in CA: ", cities.join(", "));
