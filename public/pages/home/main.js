@@ -199,8 +199,15 @@ export const feed = () => {
           </div>
         </form>
       </div>
-      
-        <ul class="posts">
+      </main>
+      <div id="all-posts"></div>
+  `;
+  divFeed.innerHTML = createFeed;
+
+  const postDrinks = (posts) => {
+    const postFeed = `
+    <main class="main">
+      <ul class="posts">
           <li class="post">
           <div class="infoUserPost">
             <div class="imgUserPost"></div>
@@ -210,7 +217,7 @@ export const feed = () => {
             </div>
           </div>
           <p class="comentUser">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper nunc scelerisque cursus tincidunt. Vestibulum id urna eget orci molestie lobortis.
+            ${posts.text}
           </p>
           <div class="actionBtnPost">
             <button type="button" class="btnreaction like"><i class="fas fa-heart iconPost" title="Curtir"></i> </button>
@@ -223,9 +230,10 @@ export const feed = () => {
         </ul>
       </div>
     </main>
-  `;
-
-  divFeed.innerHTML = createFeed;
+    `;
+    return postFeed;
+  }
+  
 
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
@@ -239,13 +247,13 @@ export const feed = () => {
   postBtn.addEventListener('click', (event) =>{
     event.preventDefault();
     newPost(postText.value);
-    postArea.innerHTML = ''; 
-    feedPosts(postDrinks);
+    feedPosts(textDrinks); 
+   
   })
 
-  const postDrinks = (arrayDrinks) => {
-    postArea.innerHTML = arrayDrinks.map(posts => `<p>${posts.text}</p>`).join('')
-  }
+   const textDrinks = (arrayDrinks) => {
+    postArea.innerHTML = arrayDrinks.map(posts => postDrinks(posts)).join('')
+  } 
 
       return divFeed
 };
