@@ -4,7 +4,7 @@ export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndP
     passLog)
     .then(function(result){
         var user = result.user;
-        window.location.hash = "#logar";
+        window.location.hash = '#logar';
     })
     .catch(function(error) {
     // Handle Errors here.
@@ -26,7 +26,6 @@ export function createUser (emailUser, passUser, nameUser) {
                 displayName: nameUser,
                 
             });
-
             var user = firebase.auth().currentUser;
 
             user.updateProfile({
@@ -35,8 +34,7 @@ export function createUser (emailUser, passUser, nameUser) {
             }).catch(function(error) {
             });
             
-            alert('Conta criada com sucesso')  
-        
+            alert('Conta criada com sucesso')          
         })
         .catch(function(error) {
         var errorCode = error.code;
@@ -70,7 +68,6 @@ export function userGoogle () {
     var credential = error.credential;
     })
 }    
-
 export const newPost = (text, name) => {
     firebase.firestore().collection("posts").add({
         name: firebase.auth().currentUser.displayName,
@@ -89,13 +86,14 @@ export const newPost = (text, name) => {
 }
 
 export const feedPosts = (callback) => {
-    firebase.firestore().collection("posts")
+    firebase.firestore().collection('posts')
     .onSnapshot(function(querySnapshot) {
         var drinks = [];
         querySnapshot.forEach(function(doc) {
-         drinks.push(doc.data());
+        drinks.push(doc.data());
         });
         callback(drinks)
     });
 }
+
 

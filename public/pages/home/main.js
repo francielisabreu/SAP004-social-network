@@ -1,6 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
 import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts} from './data.js';
-//import { greeting } from './firebase.js';
 export const home = () => {
   const container = document.createElement('div');
   const startLogIn = `
@@ -211,8 +210,8 @@ export const feed = () => {
       <div id="all-posts"></div>
   `;
   divFeed.innerHTML = createFeed;
-
   const postDrinks = (posts) => {
+
     const postFeed = `
     <main class="main">
       <ul class="posts">
@@ -228,10 +227,11 @@ export const feed = () => {
             ${posts.text}
           </p>
           <div class="actionBtnPost">
-          <button type="button" class="btnreaction"><i class="fas fa-heart" title="Curtir"></i> </button>
-          <button type="button" class="btnreaction" title="Comentar"><i class="fas fa-comments "></i> </button>
-          <button type="button" class="btnreaction" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
-          <button type="button" class="btnreaction " title="Excluir"> <i class="fas fa-trash-alt "></i> </button>
+
+            <button type="button" id="btn-like" class="btnreaction like"><i class="fas fa-heart iconPost" title="Curtir"></i> ${posts.like} </button>
+            <button type="button" class="btnreaction coments" title="Comentar"><i class="fas fa-comments iconPost"></i> </button>
+            <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
+            <button type="button" class="btnreaction delete" title="Excluir"> <i class="fas fa-trash-alt iconPost"></i> </button>
           </div>
           <button type="submit"></button>
           </li>
@@ -242,7 +242,6 @@ export const feed = () => {
     return postFeed;
   }
   
-
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
   const postArea = divFeed.querySelector('#all-posts')
@@ -252,16 +251,26 @@ export const feed = () => {
     firebase.auth().signOut();
   })
 
+  window.addEventListener('load', ()=> {
+    postArea.innerHTML = feedPosts(textDrinks);
+  })
+
   postBtn.addEventListener('click', (event) =>{
     event.preventDefault();
     newPost(postText.value);
-    feedPosts(textDrinks); 
-   
+    feedPosts(textDrinks);
   })
 
-   const textDrinks = (arrayDrinks) => {
-    postArea.innerHTML = arrayDrinks.map(posts => postDrinks(posts)).join('')
+  const textDrinks = (arrayDrinks) => {
+    postArea.innerHTML = arrayDrinks.map
+    (posts => postDrinks(posts)).join('');
+    // const btnLike = document.querySelector('.like');
+    // btnLike.addEventListener('click', (event) =>{
+    //   event.preventDefault();
+    //   const countLike = newPost(likes.value)+1;
+    //   console.log(countLike)
+    // })
   } 
 
-      return divFeed
+  return divFeed
 };
