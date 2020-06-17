@@ -14,8 +14,7 @@ export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndP
     })
 }
 
-    export function createUser (emailUser, passUser, nameUser) {
-        console.log('cliquei')
+export function createUser (emailUser, passUser, nameUser) {
         firebase.auth().createUserWithEmailAndPassword(emailUser,
         passUser)
         
@@ -27,11 +26,17 @@ export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndP
                 displayName: nameUser,
                 
             });
-        alert('Conta criada com sucesso')  
-        
+            var user = firebase.auth().currentUser;
+
+            user.updateProfile({
+            displayName: nameUser,
+            }).then(function() {
+            }).catch(function(error) {
+            });
+            
+            alert('Conta criada com sucesso')          
         })
         .catch(function(error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessege = error.message;
         alert('Não é um email válido')
@@ -63,11 +68,12 @@ export function userGoogle () {
     var credential = error.credential;
     })
 }    
-
-export const newPost = (text, likes) => {
-    firebase.firestore().collection('posts').add({
-        user_name: '',
+export const newPost = (text, name) => {
+    firebase.firestore().collection("posts").add({
+        name: firebase.auth().currentUser.displayName,
+        uid: firebase.auth().currentUser.uid,
         text: text,
+        //date: firebase.firestore.Timestamp.fromDate(),
         likes: 0,
         comments: []
     })
@@ -87,7 +93,6 @@ export const feedPosts = (callback) => {
         drinks.push(doc.data());
         });
         callback(drinks)
-        //console.log("Current cities in CA: ", cities.join(", "));
     });
 }
 

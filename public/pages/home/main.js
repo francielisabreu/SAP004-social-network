@@ -179,22 +179,30 @@ export const feed = () => {
           <div class="imgUser"></div>
           <strong class="nameUser">Maria</strong>
         </div>
-        <form class="formPost" action="#" method="POST">
+        <form class="formPost" action="#" method="POST" enctype="multipart/form-data">
           <textarea
             name="textearea"
             id="wrt-post"
             placeholder="Compartilhe as suas bebidas favoritas aqui!"
           ></textarea>
           <div class="iconButtons">
-            <div class="icons">
-              <button type="button"class="btnFileForm" title="upload de imagem">
-                <i class="fas fa-image "></i>
-              </button>
-              <button  type="button" class="btnFileForm" title="post privado">
-                <i class="fas fa-user-lock"></i>
-              </button>
+            <div class="icons">              
+              <input type="file" name="imageUploads" id="imageUploads" class="inputUpimg"  accept=".png, .jpg, .jpeg" files multiple> 
+              <label for="imageUploads" class="btnreaction "><i class="fas fa-image iconPost " title="Upload de imagens"></i> 
+              </label>
+            
+              <label for="postPublic " class="btnreaction" title="Post Público">
+                <i class="fas fa-globe-americas iconPost"></i>
+             </label>
+               <input type="radio" id="postPublic" name="radioPost" value="public" class="inputPostUser" checked>       
+              
+               <label for="postPrivad" class="btnreaction" title="Post Privado">
+                <i class="fas fa-lock iconPost"></i>
+            </label>
+              <input type="radio" id="postPrivad" name="radioPost" value="privad" class=" inputPostUser">  
             </div>
-            <button id="btn-pst" type="submit" class="btnSubmit">Publicar</button>
+
+            <button id="btnn-pst" type="submit" class="btnSubmit">Publicar</button>
           </div>
         </form>
       </div>
@@ -202,8 +210,8 @@ export const feed = () => {
       <div id="all-posts"></div>
   `;
   divFeed.innerHTML = createFeed;
+  const postDrinks = (posts) => {
 
-  const postDrinks = (posts, likes) => {
     const postFeed = `
     <main class="main">
       <ul class="posts">
@@ -211,14 +219,15 @@ export const feed = () => {
           <div class="infoUserPost">
             <div class="imgUserPost"></div>
             <div class="nameAndHour">
-              <strong class="nameUser">Maria</strong>
-              <p class="hourPost">21h</p>
+              <strong class="nameUser">${posts.name}</strong>
+              <p class="hourPost">${posts.date}</p>
             </div>
           </div>
           <p class="comentUser">
             ${posts.text}
           </p>
           <div class="actionBtnPost">
+
             <button type="button" id="btn-like" class="btnreaction like"><i class="fas fa-heart iconPost" title="Curtir"></i> ${posts.like} </button>
             <button type="button" class="btnreaction coments" title="Comentar"><i class="fas fa-comments iconPost"></i> </button>
             <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
@@ -230,10 +239,9 @@ export const feed = () => {
       </div>
     </main>
     `;
-
     return postFeed;
   }
-
+  
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
   const postArea = divFeed.querySelector('#all-posts')
