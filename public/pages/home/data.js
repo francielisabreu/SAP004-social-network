@@ -1,6 +1,6 @@
 // Aqui serão exportadas as funções que irão ser usadas
 
-export function signIn (emailLog, passLog, rootFeed) { firebase.auth().signInWithEmailAndPassword(emailLog,
+export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndPassword(emailLog,
     passLog)
     .then(function(result){
         var user = result.user;
@@ -26,20 +26,19 @@ export function createUser (emailUser, passUser, nameUser) {
                 displayName: nameUser,
                 
             });
+
             var user = firebase.auth().currentUser;
 
             user.updateProfile({
             displayName: nameUser,
             }).then(function() {
-            // Update successful.
             }).catch(function(error) {
-            // An error happened.
             });
-          alert('Conta criada com sucesso')  
+            
+            alert('Conta criada com sucesso')  
         
         })
         .catch(function(error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessege = error.message;
         alert('Não é um email válido')
@@ -72,10 +71,12 @@ export function userGoogle () {
     })
 }    
 
-export const newPost = (text) => {
+export const newPost = (text, name) => {
     firebase.firestore().collection("posts").add({
-        user_name: firebase.auth().currentUser.displayName,
+        name: firebase.auth().currentUser.displayName,
+        uid: firebase.auth().currentUser.uid,
         text: text,
+        //date: firebase.firestore.Timestamp.fromDate(),
         likes: 0,
         comments: []
     })
