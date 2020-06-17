@@ -177,7 +177,9 @@ main {
   outline: none;
   color: #383838;
 }
-
+.inputUpimg {
+  display: none;
+}
 .iconButtons {
   display: flex;
   align-items: center;
@@ -192,16 +194,19 @@ main {
   border: none;
   border-radius: 3px;
   margin: 3px 0;
+  margin-right: 3px;
   padding: 3px;
   background-color: transparent;
   color: #8c3243;
   cursor: pointer;
 }
+
 .icons {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: right;
 }
+
 .btnSubmit {
   outline: none;
   border: none;
@@ -216,6 +221,9 @@ main {
   cursor: pointer;
 }
 
+.inputPostUser {
+  margin-right: 2px;
+}
 .posts .post {
   width: 100%;
   margin-bottom: 30px;
