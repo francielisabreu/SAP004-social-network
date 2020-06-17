@@ -219,7 +219,7 @@ export const feed = () => {
             ${posts.text}
           </p>
           <div class="actionBtnPost">
-            <button type="button" id="btn-like" class="btnreaction like"><i class="fas fa-heart iconPost" title="Curtir"></i>${posts.like}</button>
+            <button type="button" id="btn-like" class="btnreaction like"><i class="fas fa-heart iconPost" title="Curtir"></i> ${posts.like} </button>
             <button type="button" class="btnreaction coments" title="Comentar"><i class="fas fa-comments iconPost"></i> </button>
             <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
             <button type="button" class="btnreaction delete" title="Excluir"> <i class="fas fa-trash-alt iconPost"></i> </button>

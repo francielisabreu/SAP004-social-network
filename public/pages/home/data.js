@@ -14,15 +14,6 @@ export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndP
     })
 }
 
-/* export function createUser (emailUser, passUser) {firebase.auth().createUserWithEmailAndPassword(emailUser,
-        passUser).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessege = error.message;
-        alert('Não é um email válido')
-        })
-    } */
-
     export function createUser (emailUser, passUser, nameUser) {
         console.log('cliquei')
         firebase.auth().createUserWithEmailAndPassword(emailUser,
