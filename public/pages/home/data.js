@@ -1,10 +1,10 @@
 // Aqui serão exportadas as funções que irão ser usadas
 
-export function signIn (emailLog, passLog, rootFeed) { firebase.auth().signInWithEmailAndPassword(emailLog,
+export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndPassword(emailLog,
     passLog)
     .then(function(result){
         var user = result.user;
-        window.location.hash = "#logar";
+        window.location.hash = '#logar';
     })
     .catch(function(error) {
     // Handle Errors here.
@@ -36,7 +36,7 @@ export function signIn (emailLog, passLog, rootFeed) { firebase.auth().signInWit
                 displayName: nameUser,
                 
             });
-          alert('Conta criada com sucesso')  
+        alert('Conta criada com sucesso')  
         
         })
         .catch(function(error) {
@@ -73,8 +73,8 @@ export function userGoogle () {
     })
 }    
 
-export const newPost = (text) => {
-    firebase.firestore().collection("posts").add({
+export const newPost = (text, likes) => {
+    firebase.firestore().collection('posts').add({
         user_name: '',
         text: text,
         likes: 0,
@@ -89,14 +89,15 @@ export const newPost = (text) => {
 }
 
 export const feedPosts = (callback) => {
-    firebase.firestore().collection("posts")
+    firebase.firestore().collection('posts')
     .onSnapshot(function(querySnapshot) {
         var drinks = [];
         querySnapshot.forEach(function(doc) {
-         drinks.push(doc.data());
+        drinks.push(doc.data());
         });
         callback(drinks)
         //console.log("Current cities in CA: ", cities.join(", "));
     });
 }
+
 

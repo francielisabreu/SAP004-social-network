@@ -1,6 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
 import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts} from './data.js';
-//import { greeting } from './firebase.js';
 export const home = () => {
   const container = document.createElement('div');
   const startLogIn = `
@@ -199,8 +198,15 @@ export const feed = () => {
           </div>
         </form>
       </div>
-      
-        <ul class="posts">
+      </main>
+      <div id="all-posts"></div>
+  `;
+  divFeed.innerHTML = createFeed;
+
+  const postDrinks = (posts, likes) => {
+    const postFeed = `
+    <main class="main">
+      <ul class="posts">
           <li class="post">
           <div class="infoUserPost">
             <div class="imgUserPost"></div>
@@ -210,10 +216,10 @@ export const feed = () => {
             </div>
           </div>
           <p class="comentUser">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper nunc scelerisque cursus tincidunt. Vestibulum id urna eget orci molestie lobortis.
+            ${posts.text}
           </p>
           <div class="actionBtnPost">
-            <button type="button" class="btnreaction like"><i class="fas fa-heart iconPost" title="Curtir"></i> </button>
+            <button type="button" id="btn-like" class="btnreaction like"><i class="fas fa-heart iconPost" title="Curtir"></i>${posts.like}</button>
             <button type="button" class="btnreaction coments" title="Comentar"><i class="fas fa-comments iconPost"></i> </button>
             <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
             <button type="button" class="btnreaction delete" title="Excluir"> <i class="fas fa-trash-alt iconPost"></i> </button>
@@ -223,9 +229,10 @@ export const feed = () => {
         </ul>
       </div>
     </main>
-  `;
+    `;
 
-  divFeed.innerHTML = createFeed;
+    return postFeed;
+  }
 
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
@@ -236,16 +243,26 @@ export const feed = () => {
     firebase.auth().signOut();
   })
 
+  window.addEventListener('load', ()=> {
+    postArea.innerHTML = feedPosts(textDrinks);
+  })
+
   postBtn.addEventListener('click', (event) =>{
     event.preventDefault();
     newPost(postText.value);
-    postArea.innerHTML = ''; 
-    feedPosts(postDrinks);
+    feedPosts(textDrinks);
   })
 
-  const postDrinks = (arrayDrinks) => {
-    postArea.innerHTML = arrayDrinks.map(posts => `<p>${posts.text}</p>`).join('')
-  }
+  const textDrinks = (arrayDrinks) => {
+    postArea.innerHTML = arrayDrinks.map
+    (posts => postDrinks(posts)).join('');
+    // const btnLike = document.querySelector('.like');
+    // btnLike.addEventListener('click', (event) =>{
+    //   event.preventDefault();
+    //   const countLike = newPost(likes.value)+1;
+    //   console.log(countLike)
+    // })
+  } 
 
-      return divFeed
+  return divFeed
 };
