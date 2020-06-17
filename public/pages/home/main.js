@@ -212,8 +212,8 @@ export const feed = () => {
           <div class="infoUserPost">
             <div class="imgUserPost"></div>
             <div class="nameAndHour">
-              <strong class="nameUser">Maria</strong>
-              <p class="hourPost">21h</p>
+              <strong class="nameUser">${posts.name}</strong>
+              <p class="hourPost">${posts.date}</p>
             </div>
           </div>
           <p class="comentUser">
