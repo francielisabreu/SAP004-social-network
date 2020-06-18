@@ -13,9 +13,7 @@ export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndP
     alert('Não é um email válido')
     })
 }
-
-    export function createUser (emailUser, passUser, nameUser) {
-        console.log('cliquei')
+export function createUser (emailUser, passUser, nameUser) {
         firebase.auth().createUserWithEmailAndPassword(emailUser,
         passUser)
         
@@ -27,11 +25,17 @@ export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndP
                 displayName: nameUser,
                 
             });
-        alert('Conta criada com sucesso')  
-        
+            var user = firebase.auth().currentUser;
+
+            user.updateProfile({
+            displayName: nameUser,
+            }).then(function() {
+            }).catch(function(error) {
+            });
+            
+            alert('Conta criada com sucesso')          
         })
         .catch(function(error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessege = error.message;
         alert('Não é um email válido')
@@ -64,10 +68,12 @@ export function userGoogle () {
     })
 }    
 
-export const newPost = (text, likes) => {
-    firebase.firestore().collection('posts').add({
-        user_name: '',
+export const newPost = (text, name) => {
+    firebase.firestore().collection("posts").add({
+        name: firebase.auth().currentUser.displayName,
+        uid: firebase.auth().currentUser.uid,
         text: text,
+        date: new Date().toLocaleString('pt-BR'),
         likes: 0,
         comments: []
     })
@@ -84,11 +90,13 @@ export const feedPosts = (callback) => {
     .onSnapshot(function(querySnapshot) {
         var drinks = [];
         querySnapshot.forEach(function(doc) {
-        drinks.push(doc.data());
+        drinks.push({...doc.data(), id:doc.id});
         });
         callback(drinks)
-        //console.log("Current cities in CA: ", cities.join(", "));
     });
 }
 
+export const updateLikes = (idPost) => {
+    firebase.firestore().collection('posts').doc(idPost).update({likes:firebase.firestore.FieldValue.increment(1)})
+}
 

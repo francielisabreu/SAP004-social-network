@@ -1,5 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
-import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts} from './data.js';
+import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts, updateLikes, deletePost} from './data.js';
 export const home = () => {
   const container = document.createElement('div');
   const startLogIn = `
@@ -149,51 +149,58 @@ btnLogin.addEventListener('click', (event) => {
 export const feed = () => {
   const divFeed = document.createElement('div');
   const createFeed = `
-    <nav id="nav">
-      <div class="logo">
-        <a href="">
-          <img
-            src="imagens/bardelas-icon.png"
-            alt="Bardelas"
-            title="Bardelas"
-          />
-        </a>
-      </div>
-      <ul class="nav-links">
-        <li>
-          <a href="#"><strong>Maria</strong> <i class="fas fa-caret-down"></i></a>
-        </li>
-        <li>
-          <a id="end-btn" href="#">Sair <i class="fas fa-sign-out-alt"></i></a>
-        </li>
-      </ul>
-      <div class="menu-burguer">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
-    </nav>
+  <nav>
+    <div class="logo">
+      <a href="#">
+        <img src="imagens/bardelas-icon.png" alt="Bardelas" title="Bardelas" />
+      </a>
+    </div>
+    <div class="menu-burger">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+
+    <ul class="nav-links">
+      <li>
+        <a href="#" id="end-btn"
+          ><strong>Maria</strong> <i class="fas fa-caret-down"></i
+        ></a>
+      </li>
+      <li>
+        <a href="#">Sair <i class="fas fa-sign-out-alt"></i></a>
+      </li>
+    </ul>
+  </nav>
     <main class="main">
       <div class="newPost">
         <div class="infoUser">
           <div class="imgUser"></div>
           <strong class="nameUser">Maria</strong>
         </div>
-        <form class="formPost" action="#" method="POST">
+        <form class="formPost" action="#" method="POST" enctype="multipart/form-data">
           <textarea
             name="textearea"
             id="wrt-post"
             placeholder="Compartilhe as suas bebidas favoritas aqui!"
           ></textarea>
           <div class="iconButtons">
-            <div class="icons">
-              <button type="button"class="btnFileForm" title="upload de imagem">
-                <i class="fas fa-image "></i>
-              </button>
-              <button  type="button" class="btnFileForm" title="post privado">
-                <i class="fas fa-user-lock"></i>
-              </button>
+            <div class="icons">              
+              <input type="file" name="imageUploads" id="imageUploads" class="inputUpimg"  accept=".png, .jpg, .jpeg" files multiple> 
+              <label for="imageUploads" class="btnreaction "><i class="fas fa-image iconPost " title="Upload de imagens"></i> 
+              </label>
+            
+              <label for="postPublic " class="btnreaction" title="Post Público">
+                <i class="fas fa-globe-americas iconPost"></i>
+              </label>
+              <input type="radio" id="postPublic" name="radioPost" value="public" class="inputPostUser" checked>       
+              
+              <label for="postPrivad" class="btnreaction" title="Post Privado">
+                <i class="fas fa-lock iconPost"></i>
+            </label>
+              <input type="radio" id="postPrivad" name="radioPost" value="privad" class=" inputPostUser">  
             </div>
+
             <button id="btn-pst" type="submit" class="btnSubmit">Publicar</button>
           </div>
         </form>
@@ -203,7 +210,7 @@ export const feed = () => {
   `;
   divFeed.innerHTML = createFeed;
 
-  const postDrinks = (posts, likes) => {
+  const postDrinks = (posts) => {
     const postFeed = `
     <main class="main">
       <ul class="posts">
@@ -211,18 +218,19 @@ export const feed = () => {
           <div class="infoUserPost">
             <div class="imgUserPost"></div>
             <div class="nameAndHour">
-              <strong class="nameUser">Maria</strong>
-              <p class="hourPost">21h</p>
+              <strong class="nameUser">${posts.name}</strong>
+              <p class="hourPost">${posts.date}</p>
             </div>
           </div>
           <p class="comentUser">
             ${posts.text}
           </p>
           <div class="actionBtnPost">
-            <button type="button" id="btn-like" class="btnreaction like"><i class="fas fa-heart iconPost" title="Curtir"></i> ${posts.like} </button>
+
+            <button type="button" class="btnreaction like" data-like = "${posts.id}"><i class="fas fa-heart iconPost" title="Curtir"></i> ${posts.likes} </button>
             <button type="button" class="btnreaction coments" title="Comentar"><i class="fas fa-comments iconPost"></i> </button>
             <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
-            <button type="button" class="btnreaction delete" title="Excluir"> <i class="fas fa-trash-alt iconPost"></i> </button>
+            <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"><i class="fas fa-trash-alt iconPost"></i> </button>
           </div>
           <button type="submit"></button>
           </li>
@@ -230,9 +238,19 @@ export const feed = () => {
       </div>
     </main>
     `;
-
     return postFeed;
   }
+
+const hamburger = divFeed.querySelector(".menu-burger");
+const navLinks = divFeed.querySelector(".nav-links");
+const links = divFeed.querySelectorAll(".nav-links li");
+
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("open");
+  links.forEach((link) => {
+    link.classList.toggle("fade");
+  });
+});
 
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
@@ -244,7 +262,7 @@ export const feed = () => {
   })
 
   window.addEventListener('load', ()=> {
-    postArea.innerHTML = feedPosts(textDrinks);
+  feedPosts(textDrinks);
   })
 
   postBtn.addEventListener('click', (event) =>{
@@ -256,13 +274,15 @@ export const feed = () => {
   const textDrinks = (arrayDrinks) => {
     postArea.innerHTML = arrayDrinks.map
     (posts => postDrinks(posts)).join('');
-    // const btnLike = document.querySelector('.like');
-    // btnLike.addEventListener('click', (event) =>{
-    //   event.preventDefault();
-    //   const countLike = newPost(likes.value)+1;
-    //   console.log(countLike)
-    // })
-  } 
 
+    const btnLike = document.querySelectorAll('.like');
+    btnLike.forEach(like => {
+        like.addEventListener('click', (event) =>{
+        event.preventDefault();
+        const idPost = like.dataset.like
+        updateLikes(idPost);
+      });
+    });
+  };
   return divFeed
 };
