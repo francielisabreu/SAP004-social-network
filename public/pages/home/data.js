@@ -13,7 +13,6 @@ export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndP
     alert('Não é um email válido')
     })
 }
-
 export function createUser (emailUser, passUser, nameUser) {
         firebase.auth().createUserWithEmailAndPassword(emailUser,
         passUser)
@@ -73,7 +72,7 @@ export const newPost = (text, name) => {
         name: firebase.auth().currentUser.displayName,
         uid: firebase.auth().currentUser.uid,
         text: text,
-        //date: firebase.firestore.Timestamp.fromDate(),
+        date: new Date().toLocaleString('pt-BR'),
         likes: 0,
         comments: []
     })
@@ -90,10 +89,12 @@ export const feedPosts = (callback) => {
     .onSnapshot(function(querySnapshot) {
         var drinks = [];
         querySnapshot.forEach(function(doc) {
-        drinks.push(doc.data());
+        drinks.push({...doc.data(), id:doc.id});
         });
         callback(drinks)
     });
 }
-
+export const updateLikes = (idPost) => {
+    firebase.firestore().collection('posts').doc(idPost).update({likes:firebase.firestore.FieldValue.increment(1)})
+}
 
