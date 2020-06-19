@@ -67,7 +67,6 @@ export function userGoogle () {
     var credential = error.credential;
     })
 }    
-
 export const newPost = (text, name) => {
     firebase.firestore().collection("posts").add({
         name: firebase.auth().currentUser.displayName,

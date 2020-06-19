@@ -251,7 +251,6 @@ export const feed = () => {
       link.classList.toggle("fade");
     });
   });
-
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
   const postArea = divFeed.querySelector('#all-posts')
@@ -286,7 +285,6 @@ export const feed = () => {
         updateLikes(idPost);
       });
     });
-    
   } 
 
       return divFeed
