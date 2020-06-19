@@ -95,7 +95,6 @@ export const feedPosts = (callback) => {
         callback(drinks)
     });
 }
-
 export const updateLikes = (idPost) => {
     firebase.firestore().collection('posts').doc(idPost).update({likes:firebase.firestore.FieldValue.increment(1)})
 }

@@ -1,5 +1,6 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
-import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts, updateLikes, deletePost} from './data.js';
+import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts, updateLikes} from './data.js';
+
 export const home = () => {
   const container = document.createElement('div');
   const startLogIn = `
@@ -192,7 +193,7 @@ export const feed = () => {
             
               <label for="postPublic " class="btnreaction" title="Post Público">
                 <i class="fas fa-globe-americas iconPost"></i>
-              </label>
+            </label>
               <input type="radio" id="postPublic" name="radioPost" value="public" class="inputPostUser" checked>       
               
               <label for="postPrivad" class="btnreaction" title="Post Privado">
@@ -226,11 +227,10 @@ export const feed = () => {
             ${posts.text}
           </p>
           <div class="actionBtnPost">
-
-            <button type="button" class="btnreaction like" data-like = "${posts.id}"><i class="fas fa-heart iconPost" title="Curtir"></i> ${posts.likes} </button>
-            <button type="button" class="btnreaction coments" title="Comentar"><i class="fas fa-comments iconPost"></i> </button>
-            <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
-            <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"><i class="fas fa-trash-alt iconPost"></i> </button>
+          <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes}</button>
+          <button type="button" class="btnreaction comment" title="Comentar"><i class="fas fa-comments "></i> </button>
+          <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
+          <button type="button" class="btnreaction delete" title="Excluir"> <i class="fas fa-trash-alt "></i> </button>
           </div>
           <button type="submit"></button>
           </li>
@@ -240,17 +240,17 @@ export const feed = () => {
     `;
     return postFeed;
   }
+  
+  const hamburger = divFeed.querySelector(".menu-burger");
+  const navLinks = divFeed.querySelector(".nav-links");
+  const links = divFeed.querySelectorAll(".nav-links li");
 
-const hamburger = divFeed.querySelector(".menu-burger");
-const navLinks = divFeed.querySelector(".nav-links");
-const links = divFeed.querySelectorAll(".nav-links li");
-
-hamburger.addEventListener("click", () => {
-  navLinks.classList.toggle("open");
-  links.forEach((link) => {
-    link.classList.toggle("fade");
+  hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+    links.forEach((link) => {
+      link.classList.toggle("fade");
+    });
   });
-});
 
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
@@ -261,28 +261,33 @@ hamburger.addEventListener("click", () => {
     firebase.auth().signOut();
   })
 
-  window.addEventListener('load', ()=> {
-  feedPosts(textDrinks);
+  window.addEventListener('load', (e)=>{
+    e.preventDefault();
+    feedPosts(textDrinks);
   })
 
   postBtn.addEventListener('click', (event) =>{
     event.preventDefault();
     newPost(postText.value);
-    feedPosts(textDrinks);
-  })
+    feedPosts(textDrinks); 
+  
+  }) 
 
   const textDrinks = (arrayDrinks) => {
-    postArea.innerHTML = arrayDrinks.map
-    (posts => postDrinks(posts)).join('');
-
+    postArea.innerHTML = arrayDrinks.map(posts => postDrinks(posts)).join('')
+    
     const btnLike = document.querySelectorAll('.like');
-    btnLike.forEach(like => {
-        like.addEventListener('click', (event) =>{
+    btnLike.forEach(btn => {
+        btn.addEventListener('click', (event) =>{
         event.preventDefault();
-        const idPost = like.dataset.like
+        console.log(btn)
+        const idPost = btn.dataset.likes
+        console.log(idPost)
         updateLikes(idPost);
       });
     });
-  };
-  return divFeed
+    
+  } 
+
+      return divFeed
 };
