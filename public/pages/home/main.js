@@ -1,5 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
-import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts, updateLikes} from './data.js';
+import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts, updateLikes, deletePost} from './data.js';
 
 export const home = () => {
   const container = document.createElement('div');
@@ -43,9 +43,9 @@ export const home = () => {
       <section class="social-media">
         <ul class="list-social-media">
           <a class="link-social-media" href="#">
-          <li class="item-social-media">
-          <i id='btn-facebook' class="fab fa-facebook-f"></i>
-        </li>
+          <li id="btn-facebook" class="item-social-media" title="Github">
+            <i class="fab fa-github"></i>
+          </li>
           </a>
           <a class="link-social-media" href="#">
             <li class="item-social-media">
@@ -230,7 +230,7 @@ export const feed = () => {
           <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes}</button>
           <button type="button" class="btnreaction comment" title="Comentar"><i class="fas fa-comments "></i> </button>
           <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
-          <button type="button" class="btnreaction delete" title="Excluir"> <i class="fas fa-trash-alt "></i> </button>
+          <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>
           </div>
           <button type="submit"></button>
           </li>
@@ -274,7 +274,6 @@ export const feed = () => {
 
   const textDrinks = (arrayDrinks) => {
     postArea.innerHTML = arrayDrinks.map(posts => postDrinks(posts)).join('')
-    
     const btnLike = document.querySelectorAll('.like');
     btnLike.forEach(btn => {
         btn.addEventListener('click', (event) =>{
@@ -284,8 +283,20 @@ export const feed = () => {
         console.log(idPost)
         updateLikes(idPost);
       });
-    });
+  });
+    const btnDelete = document.querySelectorAll('.delete');
+    btnDelete.forEach(btn => {
+      btn.addEventListener('click', (event) =>{
+      event.preventDefault()
+      const idDelete = btn.dataset.delete
+      deletePost(idDelete);
+      });
+    })
   } 
+
+  
+
+  
 
       return divFeed
 };

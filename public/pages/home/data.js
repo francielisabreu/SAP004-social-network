@@ -98,3 +98,7 @@ export const updateLikes = (idPost) => {
     firebase.firestore().collection('posts').doc(idPost).update({likes:firebase.firestore.FieldValue.increment(1)})
 }
 
+export const deletePost = (idDelete) => {
+firebase.firestore().collection('posts').doc(idDelete).delete()
+.then(() => {});
+}
