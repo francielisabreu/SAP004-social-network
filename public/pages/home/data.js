@@ -7,7 +7,6 @@ export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndP
         window.location.hash = '#logar';
     })
     .catch(function(error) {
-    // Handle Errors here.
     var errorCode = error.code;
     var errorMessege = error.message;
     alert('Não é um email válido')
@@ -100,5 +99,9 @@ export const updateLikes = (idPost) => {
 
 export const deletePost = (idDelete) => {
 firebase.firestore().collection('posts').doc(idDelete).delete()
+.then(() => {});
+}
+
+export const editText = (idTxt, newText) => {firebase.firestore().collection('posts').doc(idTxt).update(newText)
 .then(() => {});
 }

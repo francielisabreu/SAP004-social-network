@@ -1,5 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
-import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts, updateLikes, deletePost} from './data.js';
+import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts, updateLikes, deletePost, editText} from './data.js';
 
 export const home = () => {
   const container = document.createElement('div');
@@ -229,7 +229,7 @@ export const feed = () => {
           <div class="actionBtnPost">
           <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes}</button>
           <button type="button" class="btnreaction comment" title="Comentar"><i class="fas fa-comments "></i> </button>
-          <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
+          <button type="button" class="btnreaction edit" title="Editar" data-text = "${posts.id}"> <i class="fas fa-edit iconPost"></i> </button>
           <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>
           </div>
           <button type="submit"></button>
@@ -291,7 +291,25 @@ export const feed = () => {
       const idDelete = btn.dataset.delete
       deletePost(idDelete);
       });
-    })
+    });
+
+    const editInner = document.querySelectorAll('.comentUser')
+    const btnEdit = document.querySelectorAll('.edit');
+    btnEdit.forEach(btn => {
+      btn.addEventListener('click', (event) =>{
+      event.preventDefault();
+      editInner.forEach(element => {
+        element.contentEditable = true;
+      })
+    
+      console.log(btn)
+      const idTxt = btn.dataset.text
+      console.log(idTxt)
+      //editText(idTxt);
+      
+    });
+    });
+    
   } 
 
   
@@ -300,3 +318,16 @@ export const feed = () => {
 
       return divFeed
 };
+
+/* const editInner = document.querySelectorAll('.comentUser')
+const btnEdit = document.querySelectorAll('.edit');
+btnEdit.forEach(btn => {
+  btn.addEventListener('click', (event) =>{
+  event.preventDefault();
+  console.log(btn)
+  const idTxt = btn.dataset.txt
+  console.log(idTxt)
+  editText(idTxt);
+  //editInner.innerHTML = '';
+});
+}); */
