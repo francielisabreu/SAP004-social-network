@@ -1,5 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
-import { signIn, createUser, userFacebook, userGoogle, newPost, feedPosts, updateLikes, deletePost} from './data.js';
+import { signIn, createUser, userGoogle, newPost, feedPosts, updateLikes, deletePost, editText} from './data.js';
 
 export const home = () => {
   const container = document.createElement('div');
@@ -43,11 +43,6 @@ export const home = () => {
       <section class="social-media">
         <ul class="list-social-media">
           <a class="link-social-media" href="#">
-          <li id="btn-facebook" class="item-social-media" title="Github">
-            <i class="fab fa-github"></i>
-          </li>
-          </a>
-          <a class="link-social-media" href="#">
             <li class="item-social-media">
               <i id='btn-google' class="fab fa-google"></i>
             </li>
@@ -64,7 +59,6 @@ export const home = () => {
   const passLog = container.querySelector('#lgn-pass')
   const btnStart = container.querySelector('#lgn-btn')
   const btnEnd = container.querySelector('#out-btn')
-  const btnFacebook = container.querySelector("#btn-facebook")
   const btnGoogle = container.querySelector('#btn-google')
 
 btnStart.addEventListener('click', (event) => {
@@ -72,7 +66,6 @@ btnStart.addEventListener('click', (event) => {
   signIn(emailLog.value, passLog.value)
 })
 
-btnFacebook.addEventListener('click', () => userFacebook())
 btnGoogle.addEventListener('click', ()=> userGoogle())
 
 btnEnd.addEventListener('click', ()=> {
@@ -223,13 +216,13 @@ export const feed = () => {
               <p class="hourPost">${posts.date}</p>
             </div>
           </div>
-          <p class="comentUser">
+          <p data-post= "${posts.id}" class="comentUser">
             ${posts.text}
           </p>
           <div class="actionBtnPost">
-          <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes.length}</button>
-          <button type="button" class="btnreaction comment" title="Comentar"><i class="fas fa-comments "></i> </button>
-          <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
+          <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes}</button>
+          <button type="button" class="btnreaction comment" title="Comentar" data-comments = "${posts.id}"><i class="fas fa-comments "></i> </button>
+          <button type="button" class="btnreaction edit" title="Editar" data-text = "${posts.id}"> <i class="fas fa-edit iconPost"></i> </button>
           <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>
           </div>
           <button type="submit"></button>
@@ -241,14 +234,14 @@ export const feed = () => {
     return postFeed;
   }
   
-  const hamburger = divFeed.querySelector(".menu-burger");
-  const navLinks = divFeed.querySelector(".nav-links");
-  const links = divFeed.querySelectorAll(".nav-links li");
+  const hamburger = divFeed.querySelector('.menu-burger');
+  const navLinks = divFeed.querySelector('.nav-links');
+  const links = divFeed.querySelectorAll('.nav-links li');
 
-  hamburger.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
     links.forEach((link) => {
-      link.classList.toggle("fade");
+      link.classList.toggle('fade');
     });
   });
   const postText = divFeed.querySelector('#wrt-post')
@@ -282,14 +275,46 @@ export const feed = () => {
         updateLikes(idPost)
       });
   });
+
     const btnDelete = document.querySelectorAll('.delete');
+    const btnEdit = document.querySelectorAll('.edit');
+    /* const btnComment = document.querySelectorAll('.comment');
+    const idComment = btn.dataset.text */
+
+    /* firebase.auth().onAuthStateChanged(firebaseUser => {
+      if (firebaseUser) {
+        if(firebase.auth().currentUser.uid !== {...doc.data(), uid:doc.uid}){
+          btnDelete.style.display = 'none'
+          btnEdit.style.display = 'none'
+        };
+      } 
+    }) */
+
     btnDelete.forEach(btn => {
       btn.addEventListener('click', (event) =>{
       event.preventDefault()
       const idDelete = btn.dataset.delete
       deletePost(idDelete);
       });
-    })
+    });
+
+    btnEdit.forEach(btn => {
+      btn.addEventListener('click', (event) =>{
+      event.preventDefault();
+      const idTxt = btn.dataset.text
+      const element = document.querySelector(`p[data-post="${idTxt}"`)
+      console.log(element)
+      if (element.contentEditable !== 'true'){
+        element.contentEditable = true;
+        element.focus();
+      }else{
+       element.contentEditable = false
+       editText(idTxt, {text:element.textContent});
+      }
+    });
+    });
+    
   } 
     return divFeed
 };
+

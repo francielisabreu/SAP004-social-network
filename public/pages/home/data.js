@@ -7,7 +7,6 @@ export function signIn (emailLog, passLog) { firebase.auth().signInWithEmailAndP
         window.location.hash = '#logar';
     })
     .catch(function(error) {
-    // Handle Errors here.
     var errorCode = error.code;
     var errorMessege = error.message;
     alert('Não é um email válido')
@@ -42,18 +41,6 @@ export function createUser (emailUser, passUser, nameUser) {
         })
     }    
 
-export function userFacebook() {
-        var provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-        var token = result.credential.accessToken;
-        var user = result.user;
-        }).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-        })
-    } 
 
 export function userGoogle () {
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -67,7 +54,7 @@ export function userGoogle () {
     var credential = error.credential;
     })
 }    
-export const newPost = (text, name) => {
+export const newPost = (text, name, uid) => {
     firebase.firestore().collection("posts").add({
         name: firebase.auth().currentUser.displayName,
         uid: firebase.auth().currentUser.uid,
@@ -116,3 +103,15 @@ export const deletePost = (idDelete) => {
 firebase.firestore().collection('posts').doc(idDelete).delete()
 .then(() => {});
 }
+
+export const editText = (idTxt, newText) => {firebase.firestore().collection('posts').doc(idTxt).update(newText)
+.then(() => {});
+}
+
+/* export const commits = firebase.firestore().collection('posts').doc(idComment);
+commits.update({
+    regions: firebase.firestore.FieldValue.arrayUnion("greater_virginia")
+});
+commits.update({
+    regions: firebase.firestore.FieldValue.arrayRemove("east_coast")
+}); */
