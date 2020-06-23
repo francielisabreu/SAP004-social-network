@@ -271,10 +271,8 @@ export const feed = () => {
     btnLike.forEach(btn => {
         btn.addEventListener('click', (event) =>{
         event.preventDefault();
-        console.log(btn)
         const idPost = btn.dataset.likes
-        console.log(idPost)
-        updateLikes(idPost);
+        updateLikes(idPost)
       });
   });
 
@@ -317,11 +315,6 @@ export const feed = () => {
     });
     
   } 
-
-  
-
-  
-
-      return divFeed
+    return divFeed
 };
 
