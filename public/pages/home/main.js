@@ -227,7 +227,7 @@ export const feed = () => {
             ${posts.text}
           </p>
           <div class="actionBtnPost">
-          <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes}</button>
+          <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes.length}</button>
           <button type="button" class="btnreaction comment" title="Comentar"><i class="fas fa-comments "></i> </button>
           <button type="button" class="btnreaction edit" title="Editar"> <i class="fas fa-edit iconPost"></i> </button>
           <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>
@@ -278,10 +278,8 @@ export const feed = () => {
     btnLike.forEach(btn => {
         btn.addEventListener('click', (event) =>{
         event.preventDefault();
-        console.log(btn)
         const idPost = btn.dataset.likes
-        console.log(idPost)
-        updateLikes(idPost);
+        updateLikes(idPost)
       });
   });
     const btnDelete = document.querySelectorAll('.delete');
@@ -293,10 +291,5 @@ export const feed = () => {
       });
     })
   } 
-
-  
-
-  
-
-      return divFeed
+    return divFeed
 };

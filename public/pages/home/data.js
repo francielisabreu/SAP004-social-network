@@ -73,7 +73,7 @@ export const newPost = (text, name) => {
         uid: firebase.auth().currentUser.uid,
         text: text,
         date: new Date().toLocaleString('pt-BR'),
-        likes: 0,
+        likes: [],
         comments: []
     })
     .then(function(docRef) {
@@ -86,6 +86,7 @@ export const newPost = (text, name) => {
 
 export const feedPosts = (callback) => {
     firebase.firestore().collection('posts')
+    .orderBy('date', 'desc')
     .onSnapshot(function(querySnapshot) {
         var drinks = [];
         querySnapshot.forEach(function(doc) {
@@ -94,8 +95,21 @@ export const feedPosts = (callback) => {
         callback(drinks)
     });
 }
-export const updateLikes = (idPost) => {
-    firebase.firestore().collection('posts').doc(idPost).update({likes:firebase.firestore.FieldValue.increment(1)})
+export const checkLikesLength = async (idPost) => {
+    const post = await firebase.firestore().collection('posts').doc(idPost)
+    .get().then(data => data.data().likes.includes(firebase.auth().currentUser.uid)) 
+    return post
+} 
+export const updateLikes = async (idPost) => {
+    const previouslyLikesLength = await checkLikesLength(idPost);
+    console.log(previouslyLikesLength)
+    if (!previouslyLikesLength) {
+        firebase.firestore().collection('posts').doc(idPost)
+        .update({likes:firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.uid)})    
+    }else if (previouslyLikesLength) {
+        firebase.firestore().collection('posts').doc(idPost)
+        .update({likes:firebase.firestore.FieldValue.arrayRemove(firebase.auth().currentUser.uid)})
+    }
 }
 
 export const deletePost = (idDelete) => {
