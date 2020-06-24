@@ -47,6 +47,7 @@ export function userGoogle () {
     firebase.auth().signInWithPopup(provider).then(function(result) {
     var token = result.credential.accessToken;
     var user = result.user;
+    window.location.hash = '#logar';
     }).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -87,6 +88,7 @@ export const checkLikesLength = async (idPost) => {
     .get().then(data => data.data().likes.includes(firebase.auth().currentUser.uid)) 
     return post
 } 
+
 export const updateLikes = async (idPost) => {
     const previouslyLikesLength = await checkLikesLength(idPost);
     console.log(previouslyLikesLength)
@@ -108,10 +110,11 @@ export const editText = (idTxt, newText) => {firebase.firestore().collection('po
 .then(() => {});
 }
 
-/* export const commits = firebase.firestore().collection('posts').doc(idComment);
+export const commits = (idComment, txtComment) => {firebase.firestore().collection('posts').doc(idComment);
 commits.update({
-    regions: firebase.firestore.FieldValue.arrayUnion("greater_virginia")
+    commits: firebase.firestore.FieldValue.arrayUnion(txtComment)
 });
-commits.update({
+}
+/* commits.update({
     regions: firebase.firestore.FieldValue.arrayRemove("east_coast")
-}); */
+}); */ 
