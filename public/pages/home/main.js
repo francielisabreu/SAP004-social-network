@@ -150,8 +150,9 @@ export const feed = () => {
 
     <ul class="nav-links">
       <li>
+      <a>
         <strong class="name-menu"></strong> <i class="fas fa-caret-down"></i
-        >
+        ></a>
       </li>
       <li>
         <a href="#" id="end-btn">Sair <i class="fas fa-sign-out-alt"></i></a>
@@ -195,7 +196,7 @@ export const feed = () => {
 
   const postDrinks = (posts) => {
     const postFeed = `
-    <section>
+    <main class="main">
       <ul class="posts">
           <li class="post">
           <div class="infoUserPost">
@@ -210,15 +211,17 @@ export const feed = () => {
           </p>
           <div class="actionBtnPost">
           <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes.length}</button>
-          <button type="button" class="btnreaction comment" title="Comentar" data-comments = "${posts.id}"><i class="fas fa-comments "></i> </button>
+          <button type="button" class="btnreaction comment" title="Comentar" data-btncomments = "${posts.id}"><i class="fas fa-comments "></i> </button>
           ${posts.uid === firebase.auth().currentUser.uid ? `<button type="button" class="btnreaction edit" title="Editar" data-text = "${posts.id}"> <i class="fas fa-edit iconPost"></i> </button>
           <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>`:''}
           </div>
           </li>
         </ul>
-        <div id="txt-commits></div>
+        <div id="txt-commits">
+        <textarea class="area-comments" data-comments = "${posts.id}"></textarea>
+        </div>
       </div>
-    </section>
+    </main>
     `;
   
     return postFeed;
@@ -260,6 +263,12 @@ export const feed = () => {
     postArea.innerHTML = arrayDrinks.map(posts => postDrinks(posts)).join('')
     
     const btnLike = document.querySelectorAll('.like');
+    const btnDelete = document.querySelectorAll('.delete');
+    const btnEdit = document.querySelectorAll('.edit');
+    const btnComment = document.querySelectorAll('.comment');
+    //const printComment = document.querySelectorAll('#txt-commits');
+    const printComment = document.querySelectorAll('.area-comments');
+
     btnLike.forEach(btn => {
         btn.addEventListener('click', (event) =>{
         event.preventDefault();
@@ -267,9 +276,6 @@ export const feed = () => {
         updateLikes(idPost)
       });
   });
-
-  const btnDelete = document.querySelectorAll('.delete');
-  const btnEdit = document.querySelectorAll('.edit');
 
     btnDelete.forEach(btn => {
       btn.addEventListener('click', (event) =>{
@@ -294,6 +300,20 @@ export const feed = () => {
       }
     });
     });
+
+    btnComment.forEach(btn => {
+        btn.addEventListener('click', (event) =>{
+        event.preventDefault();
+        printComment.forEach(txt => {
+          const idArea = txt.dataset.commits
+          console.log(idArea)
+          printComment.style.display = 'block'
+          const idComment = btn.dataset.commits
+          console.log (commits)
+          commits(idComment)
+        })
+      });
+  });
 
 
     
