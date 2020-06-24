@@ -90,7 +90,10 @@ nav {
     pointer-events: all;
   }
   .main {
-    flex-direction: column;
+      display: flex;
+      max-width: 50vh;
+      flex-direction: column;
+      margin: 0 auto;
   }
   .nav-links li {
     opacity: 0;
@@ -112,7 +115,7 @@ nav {
   }
 }
 
-main {
+section {
   display: flex;
   max-width: 50vh;
   flex-direction: column;
