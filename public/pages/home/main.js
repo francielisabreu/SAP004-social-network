@@ -34,9 +34,6 @@ export const home = () => {
         <button id="lgn-btn" class="btn btn-login" name="login" type="submit" autofocus>
         Entrar
         </button>
-        <button id="out-btn" class="btn btn-login" name="logout" type="submit" autofocus>
-          Sair
-        </button>
       </form>
 
       <h2 class="description">Ou entre com...</h2>
@@ -67,10 +64,6 @@ btnStart.addEventListener('click', (event) => {
 })
 
 btnGoogle.addEventListener('click', ()=> userGoogle())
-
-btnEnd.addEventListener('click', ()=> {
-  firebase.auth().signOut();
-})
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
   if (firebaseUser) {
@@ -157,12 +150,12 @@ export const feed = () => {
 
     <ul class="nav-links">
       <li>
-        <a id="end-btn">
-        <strong>Nicole</strong> <i class="fas fa-caret-down"></i
+      <a class="name-nav">
+        <strong class="name-menu"></strong> <i class="fas fa-caret-down"></i
         ></a>
       </li>
       <li>
-        <a href="#">Sair <i class="fas fa-sign-out-alt"></i></a>
+        <a href="#" id="end-btn">Sair <i class="fas fa-sign-out-alt"></i></a>
       </li>
     </ul>
   </nav>
@@ -170,7 +163,7 @@ export const feed = () => {
       <div class="newPost">
         <div class="infoUser">
           <div class="imgUser"></div>
-          <strong class="nameUser">Nicole</strong>
+          <strong class="nameUser"></strong>
         </div>
         <form class="formPost" action="#" method="POST" enctype="multipart/form-data">
           <textarea
@@ -179,13 +172,12 @@ export const feed = () => {
             placeholder="Compartilhe as suas bebidas favoritas aqui!"
           ></textarea>
           <div class="iconButtons">
-            <div class="icons">              
-            <label for="postPrivad" class="btnreaction" title="Post Privado">
-              <i class="fas fa-lock iconPost"></i>
+            <div class="icons"> 
+              <label for="postPrivad" class="btnreaction" title="Post Privado">
+                <i class="fas fa-lock iconPost"></i>
             </label>
               <input type="radio" id="postPrivad" name="radioPost" value="privad" class=" inputPostUser">  
             </div>
-
             <button id="btn-pst" type="submit" class="btnSubmit">Publicar</button>
           </div>
         </form>
@@ -194,6 +186,13 @@ export const feed = () => {
       <div id="all-posts"></div>
   `;
   divFeed.innerHTML = createFeed;
+
+  firebase.auth().onAuthStateChanged(firebaseUser => {
+    if (firebaseUser) {
+      divFeed.querySelector('.nameUser').innerHTML = firebase.auth().currentUser.displayName;
+      divFeed.querySelector('.name-menu').innerHTML = firebase.auth().currentUser.displayName;
+    }
+  })
 
   const postDrinks = (posts) => {
     const postFeed = `
@@ -211,15 +210,18 @@ export const feed = () => {
           </p>
           <div class="actionBtnPost">
           <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes.length}</button>
-          <button type="button" class="btnreaction comment" title="Comentar" data-comments = "${posts.id}"><i class="fas fa-comments "></i> </button>
-          <button type="button" class="btnreaction edit" title="Editar" data-text = "${posts.id}"> <i class="fas fa-edit iconPost"></i> </button>
-          <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>
+          <button type="button" class="btnreaction comment" title="Comentar" data-btncomments = "${posts.id}"><i class="fas fa-comments "></i> </button>
+          ${posts.uid === firebase.auth().currentUser.uid ? `<button type="button" class="btnreaction edit" title="Editar" data-text = "${posts.id}"> <i class="fas fa-edit iconPost"></i> </button>
+          <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>`:''}
           </div>
-          <button type="submit"></button>
           </li>
         </ul>
+        <div id="txt-commits">
+        <textarea class="area-comments" data-comments = "${posts.id}"></textarea>
+        </div>
       </div>
     `;
+  
     return postFeed;
   }
   
@@ -233,21 +235,27 @@ export const feed = () => {
       link.classList.toggle('fade');
     });
   });
+
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
   const postArea = divFeed.querySelector('#all-posts')
   const btnSair = divFeed.querySelector('#end-btn')
   const linkProfile = divFeed.querySelector('.nameUser')
   const backFeed = divFeed.querySelector('.back-feed')
+  const nameNav = divFeed.querySelector('.name-nav')
 
-  // botão do perfil
   linkProfile.addEventListener('click', (e) => {
     feedPostsProfile(postsProfileTemplate, postArea)
   })
-  
-  backFeed.addEventListener('click', () => {
+
+  nameNav.addEventListener('click', () => {
     feedPosts(textDrinks)
   })
+  backFeed.addEventListener('click', () => {
+    feedPosts(textDrinks)
+
+  })
+
 
   btnSair.addEventListener('click', ()=> {
     firebase.auth().signOut();
@@ -266,7 +274,14 @@ export const feed = () => {
 
   const textDrinks = (arrayDrinks) => {
     postArea.innerHTML = arrayDrinks.map(posts => postDrinks(posts)).join('')
+    
     const btnLike = document.querySelectorAll('.like');
+    const btnDelete = document.querySelectorAll('.delete');
+    const btnEdit = document.querySelectorAll('.edit');
+    const btnComment = document.querySelectorAll('.comment');
+    //const printComment = document.querySelectorAll('#txt-commits');
+    const printComment = document.querySelectorAll('.area-comments');
+
     btnLike.forEach(btn => {
       btn.addEventListener('click', (event) =>{
         event.preventDefault();
@@ -274,20 +289,6 @@ export const feed = () => {
         updateLikes(idPost)
       });
     });
-
-    const btnDelete = document.querySelectorAll('.delete');
-    const btnEdit = document.querySelectorAll('.edit');
-    /* const btnComment = document.querySelectorAll('.comment');
-    const idComment = btn.dataset.text */
-
-    /* firebase.auth().onAuthStateChanged(firebaseUser => {
-      if (firebaseUser) {
-        if(firebase.auth().currentUser.uid !== {...doc.data(), uid:doc.uid}){
-          btnDelete.style.display = 'none'
-          btnEdit.style.display = 'none'
-        };
-      } 
-    }) */
 
     btnDelete.forEach(btn => {
       btn.addEventListener('click', (event) =>{
@@ -312,6 +313,22 @@ export const feed = () => {
       }
     });
     });
+
+    // btnComment.forEach(btn => {
+    //   btn.addEventListener('click', (event) =>{
+    //     event.preventDefault();
+    //     printComment.forEach(txt => {
+    //       const idArea = txt.dataset.commits
+    //       console.log(idArea)
+    //       printComment.style.display = 'block'
+    //       const idComment = btn.dataset.commits
+    //       console.log (commits)
+    //       commits(idComment)
+    //     });
+    //   });
+    // });
+
+
     
   } 
     return divFeed

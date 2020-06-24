@@ -44,14 +44,17 @@ export function createUser(emailUser, passUser, nameUser) {
     });
 }
 
-export function userGoogle() {
-  var provider = new firebase.auth.GoogleAuthProvider();
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then(function (result) {
-      var token = result.credential.accessToken;
-      var user = result.user;
+export function userGoogle () {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+    var token = result.credential.accessToken;
+    var user = result.user;
+    window.location.hash = '#logar';
+    }).catch(function(error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    var email = error.email;
+    var credential = error.credential;
     })
     .catch(function (error) {
       var errorCode = error.code;
@@ -99,12 +102,7 @@ export const feedPosts = (callback) => {
     });
 };
 export const checkLikesLength = async (idPost) => {
-  const post = await firebase
-    .firestore()
-    .collection("posts")
-    .doc(idPost)
-    .get()
-    .then((data) =>
+  const post = await firebase.firestore().collection("posts").doc(idPost).get().then((data) =>
       data.data().likes.includes(firebase.auth().currentUser.uid)
     );
   return post;
@@ -152,11 +150,12 @@ export const editText = (idTxt, newText) => {
     .then(() => {});
 };
 
-/* export const commits = firebase.firestore().collection('posts').doc(idComment);
-commits.update({
-    regions: firebase.firestore.FieldValue.arrayUnion("greater_virginia")
-});
-commits.update({
+// export const commits = (idComment, txtComment) => {firebase.firestore().collection('posts').doc(idComment);
+//   commits.update({
+//       commits: firebase.firestore.FieldValue.arrayUnion(txtComment)
+//   });
+// }
+/* commits.update({
     regions: firebase.firestore.FieldValue.arrayRemove("east_coast")
 }); */
 export const feedPostsProfile = (func, postArea) => {
@@ -172,3 +171,4 @@ export const feedPostsProfile = (func, postArea) => {
       });
     });
 };
+
