@@ -29,7 +29,7 @@ Aqui você pode curtir, editar e salvar as mais diversas receitas de bebidas.
 
 ## 3.Nosso Público
 
-Mulheres com 18 anos ou + que gostam de compartilhar falar sobre bebidas e compartilhar receitas com outras mulheres.
+Mulheres com 18 anos ou + que gostam de compartilhar receitas com outras mulheres.
 
 ## 4. A Interface do Projeto
 
