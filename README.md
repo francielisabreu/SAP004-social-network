@@ -33,6 +33,8 @@ Mulheres com 18 anos ou + que gostam de compartilhar receitas com outras mulhere
 
 ## 4. A Interface do Projeto
 
+![rede_social_bradelas](https://user-images.githubusercontent.com/61169584/85641896-4ba14100-b666-11ea-9877-cab660730498.gif)
+
 PÁGINA DE LOGIN
 
 ![page-login](https://user-images.githubusercontent.com/61169584/85619281-72488300-b638-11ea-8f76-42b5898c9606.png)
