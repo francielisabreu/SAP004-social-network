@@ -39,7 +39,7 @@ PÁGINA DE LOGIN
 
 ![page-login](https://user-images.githubusercontent.com/61169584/85619281-72488300-b638-11ea-8f76-42b5898c9606.png)
 
-Aqui a usuária pode fazer o login na rede social com email e senha ou se preferir, pode entrar com uma conta do Google.
+Aqui a usuária poderá fazer o login na rede social com email e senha, ou se preferir, poderá entrar com uma conta do Google.
 Caso não tenha uma conta, realize o cadastro através do link "Cadastre-se".
 
 
