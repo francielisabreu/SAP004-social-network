@@ -1,5 +1,5 @@
 // Aqui serão criados os eventos de Manipulação de DOM e templates
-import { signIn, createUser, userGoogle, newPost, feedPosts, updateLikes, deletePost, editText} from './data.js';
+import { signIn, createUser, userGoogle, newPost, feedPosts, updateLikes, deletePost, editText, feedPostsProfile} from './data.js';
 
 export const home = () => {
   const container = document.createElement('div');
@@ -34,9 +34,6 @@ export const home = () => {
         <button id="lgn-btn" class="btn btn-login" name="login" type="submit" autofocus>
         Entrar
         </button>
-        <button id="out-btn" class="btn btn-login" name="logout" type="submit" autofocus>
-          Sair
-        </button>
       </form>
 
       <h2 class="description">Ou entre com...</h2>
@@ -67,10 +64,6 @@ btnStart.addEventListener('click', (event) => {
 })
 
 btnGoogle.addEventListener('click', ()=> userGoogle())
-
-btnEnd.addEventListener('click', ()=> {
-  firebase.auth().signOut();
-})
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
   if (firebaseUser) {
@@ -145,7 +138,7 @@ export const feed = () => {
   const createFeed = `
   <nav>
     <div class="logo">
-      <a href="#">
+      <a class="back-feed">
         <img src="imagens/bardelas-icon.png" alt="Bardelas" title="Bardelas" />
       </a>
     </div>
@@ -157,12 +150,12 @@ export const feed = () => {
 
     <ul class="nav-links">
       <li>
-        <a href="#" id="end-btn"
-          ><strong>Maria</strong> <i class="fas fa-caret-down"></i
+      <a class="name-nav">
+        <strong class="name-menu"></strong> <i class="fas fa-caret-down"></i
         ></a>
       </li>
       <li>
-        <a href="#">Sair <i class="fas fa-sign-out-alt"></i></a>
+        <a href="#" id="end-btn">Sair <i class="fas fa-sign-out-alt"></i></a>
       </li>
     </ul>
   </nav>
@@ -170,7 +163,7 @@ export const feed = () => {
       <div class="newPost">
         <div class="infoUser">
           <div class="imgUser"></div>
-          <strong class="nameUser">Maria</strong>
+          <strong class="nameUser"></strong>
         </div>
         <form class="formPost" action="#" method="POST" enctype="multipart/form-data">
           <textarea
@@ -179,34 +172,30 @@ export const feed = () => {
             placeholder="Compartilhe as suas bebidas favoritas aqui!"
           ></textarea>
           <div class="iconButtons">
-            <div class="icons">              
-              <input type="file" name="imageUploads" id="imageUploads" class="inputUpimg"  accept=".png, .jpg, .jpeg" files multiple> 
-              <label for="imageUploads" class="btnreaction "><i class="fas fa-image iconPost " title="Upload de imagens"></i> 
-              </label>
-            
-              <label for="postPublic " class="btnreaction" title="Post Público">
-                <i class="fas fa-globe-americas iconPost"></i>
-            </label>
-              <input type="radio" id="postPublic" name="radioPost" value="public" class="inputPostUser" checked>       
-              
+            <div class="icons"> 
               <label for="postPrivad" class="btnreaction" title="Post Privado">
                 <i class="fas fa-lock iconPost"></i>
             </label>
               <input type="radio" id="postPrivad" name="radioPost" value="privad" class=" inputPostUser">  
             </div>
-
             <button id="btn-pst" type="submit" class="btnSubmit">Publicar</button>
           </div>
         </form>
       </div>
-      </main>
+    <main>
       <div id="all-posts"></div>
   `;
   divFeed.innerHTML = createFeed;
 
+  firebase.auth().onAuthStateChanged(firebaseUser => {
+    if (firebaseUser) {
+      divFeed.querySelector('.nameUser').innerHTML = firebase.auth().currentUser.displayName;
+      divFeed.querySelector('.name-menu').innerHTML = firebase.auth().currentUser.displayName;
+    }
+  })
+
   const postDrinks = (posts) => {
     const postFeed = `
-    <main class="main">
       <ul class="posts">
           <li class="post">
           <div class="infoUserPost">
@@ -220,17 +209,19 @@ export const feed = () => {
             ${posts.text}
           </p>
           <div class="actionBtnPost">
-          <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes}</button>
-          <button type="button" class="btnreaction comment" title="Comentar" data-comments = "${posts.id}"><i class="fas fa-comments "></i> </button>
-          <button type="button" class="btnreaction edit" title="Editar" data-text = "${posts.id}"> <i class="fas fa-edit iconPost"></i> </button>
-          <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>
+          <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes.length}</button>
+          <button type="button" class="btnreaction comment" title="Comentar" data-btncomments = "${posts.id}"><i class="fas fa-comments "></i> </button>
+          ${posts.uid === firebase.auth().currentUser.uid ? `<button type="button" class="btnreaction edit" title="Editar" data-text = "${posts.id}"> <i class="fas fa-edit iconPost"></i> </button>
+          <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>`:''}
           </div>
-          <button type="submit"></button>
           </li>
         </ul>
+        <div id="txt-commits">
+        <textarea class="area-comments" data-comments = "${posts.id}"></textarea>
+        </div>
       </div>
-    </main>
     `;
+  
     return postFeed;
   }
   
@@ -244,10 +235,26 @@ export const feed = () => {
       link.classList.toggle('fade');
     });
   });
+
   const postText = divFeed.querySelector('#wrt-post')
   const postBtn = divFeed.querySelector('#btn-pst')
   const postArea = divFeed.querySelector('#all-posts')
   const btnSair = divFeed.querySelector('#end-btn')
+  const linkProfile = divFeed.querySelector('.nameUser')
+  const backFeed = divFeed.querySelector('.back-feed')
+  const nameNav = divFeed.querySelector('.name-nav')
+
+  linkProfile.addEventListener('click', (e) => {
+    feedPostsProfile(postsProfileTemplate, postArea)
+  })
+
+  nameNav.addEventListener('click', () => {
+    feedPosts(textDrinks)
+  })
+  backFeed.addEventListener('click', () => {
+    feedPosts(textDrinks)
+
+  })
 
   btnSair.addEventListener('click', ()=> {
     firebase.auth().signOut();
@@ -262,14 +269,20 @@ export const feed = () => {
     event.preventDefault();
     newPost(postText.value);
     feedPosts(textDrinks); 
-  
   }) 
 
   const textDrinks = (arrayDrinks) => {
     postArea.innerHTML = arrayDrinks.map(posts => postDrinks(posts)).join('')
+    
     const btnLike = document.querySelectorAll('.like');
+    const btnDelete = document.querySelectorAll('.delete');
+    const btnEdit = document.querySelectorAll('.edit');
+    const btnComment = document.querySelectorAll('.comment');
+    //const printComment = document.querySelectorAll('#txt-commits');
+    const printComment = document.querySelectorAll('.area-comments');
+
     btnLike.forEach(btn => {
-        btn.addEventListener('click', (event) =>{
+      btn.addEventListener('click', (event) =>{
         event.preventDefault();
         const idPost = btn.dataset.likes
         updateLikes(idPost)
@@ -279,9 +292,10 @@ export const feed = () => {
     const btnDelete = document.querySelectorAll('.delete');
     const btnEdit = document.querySelectorAll('.edit');
 
+
     btnDelete.forEach(btn => {
       btn.addEventListener('click', (event) =>{
-      event.preventDefault()
+      event.preventDefault();
       const idDelete = btn.dataset.delete
       deletePost(idDelete);
       });
@@ -306,3 +320,30 @@ export const feed = () => {
     return divFeed
 };
 
+const postsProfileTemplate = (postArea, posts) =>{
+  postArea.innerHTML = '';
+  postArea.innerHTML = `
+  <ul class="posts">
+          <li class="post">
+          <div class="infoUserPost">
+            <div class="imgUserPost"></div>
+            <div class="nameAndHour">
+              <strong class="nameUser">${posts.data().name}</strong>
+              <p class="hourPost">${posts.data().date}</p>
+            </div>
+          </div>
+          <p data-post= "${posts.data().id}" class="comentUser">
+            ${posts.data().text}
+          </p>
+          <div class="actionBtnPost">
+          <button type="button" class="btnreaction like" data-likes = "${posts.data().id}"><i class="fas fa-heart" title="Curtir"></i>${posts.data().likes.length}</button>
+          <button type="button" class="btnreaction comment" title="Comentar" data-comments = "${posts.data().id}"><i class="fas fa-comments "></i> </button>
+          <button type="button" class="btnreaction edit" title="Editar" data-text = "${posts.data().id}"> <i class="fas fa-edit iconPost"></i> </button>
+          <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.data().id}"> <i class="fas fa-trash-alt "></i> </button>
+          </div>
+          <button type="submit"></button>
+          </li>
+        </ul>
+      </div>
+  `;
+}

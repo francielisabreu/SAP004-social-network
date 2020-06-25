@@ -112,8 +112,11 @@ nav {
   }
 }
 
+.name-nav{
+  cursor: pointer;
+}
+
 main {
-  display: flex;
   max-width: 50vh;
   flex-direction: column;
   margin: 0 auto;
@@ -148,6 +151,7 @@ main {
   color: #8c3243;
   margin-left: 10px;
   text-transform: capitalize;
+  cursor: pointer;
 }
 .formPost {
   display: flex;
@@ -275,4 +279,8 @@ main {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
+}
+
+.area-comments{
+  display: none;
 }
