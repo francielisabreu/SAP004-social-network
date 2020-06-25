@@ -27,7 +27,7 @@ determinadas tags ou popularidade, mais recente ou mais comentado.
 Bardelas, a rede social para todas as mulheres que são apaixonadas pela arte de criar e degustar ótimos drinks. 
 Aqui você pode curtir, editar e salvar as mais diversas receitas de bebidas.
 
-## 3.Nosso Público
+## 3. Nosso Público
 
 Mulheres com 18 anos ou + que gostam de compartilhar os seus drinks com outras mulheres.
 
@@ -35,7 +35,7 @@ Mulheres com 18 anos ou + que gostam de compartilhar os seus drinks com outras m
 
 ![rede_social_bradelas](https://user-images.githubusercontent.com/61169584/85641896-4ba14100-b666-11ea-9877-cab660730498.gif)
 
-PÁGINA DE LOGIN
+**PÁGINA DE LOGIN**
 
 ![page-login](https://user-images.githubusercontent.com/61169584/85619281-72488300-b638-11ea-8f76-42b5898c9606.png)
 
@@ -43,7 +43,7 @@ Aqui a usuária poderá fazer o login na rede social com email e senha, ou se pr
 Caso não tenha uma conta, realize o cadastro através do link "Cadastre-se".
 
 
-PÁGINA DE CADASTRO
+**PÁGINA DE CADASTRO**
 
 ![page-cadastro](https://user-images.githubusercontent.com/61169584/85619278-707ebf80-b638-11ea-949d-488591ebc370.png)
 
@@ -52,19 +52,19 @@ Viu como é fácil?! Ah, para sua comodidade, temos um botão de limpar os campo
 um click.
 
 
-PÁGINA DE FEED - VERSÃO MOBILE
+**PÁGINA DE FEED - VERSÃO MOBILE**
 
 ![page-feed-mobile](https://user-images.githubusercontent.com/61169584/85623232-77103580-b63e-11ea-9ee1-5c92a7066ea6.png)
 
 Após efetuar o login, a usuária terá acesso a tela de feed, da qual ela poderá criar as suas postagens, curtir outras publicações, editar o próprio post e também excluir somente as suas publicações. 
 
-MENU - VERSÃO MOBILE
+**MENU - VERSÃO MOBILE**
 
 ![menu-mobile](https://user-images.githubusercontent.com/61169584/85623227-75df0880-b63e-11ea-8bf1-59bfd1c6d5af.png)
 
 Através do menu hamburger você poderá acessar o link para o seu perfil, ao entrar, você terá somente acesso aos posts da usuária logada, juntamente com o link para sair do site.
 
-PÁGINA DE FEED - VERSÃO DESKTOP 
+**PÁGINA DE FEED - VERSÃO DESKTOP** 
 
 ![page-feed-desktop](https://user-images.githubusercontent.com/61169584/85634510-e7748200-b651-11ea-864a-8702f29bcfbc.png)
 
