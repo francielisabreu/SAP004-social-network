@@ -1,5 +1,3 @@
-// Este é o ponto de entrada de sua aplicação
-// import { home, registro } from './pages/home/main.js';
 import routes from './pages/home/routes.js';
 
 const main = document.querySelector('.root')

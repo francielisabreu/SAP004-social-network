@@ -278,17 +278,6 @@ export const feed = () => {
 
     const btnDelete = document.querySelectorAll('.delete');
     const btnEdit = document.querySelectorAll('.edit');
-    /* const btnComment = document.querySelectorAll('.comment');
-    const idComment = btn.dataset.text */
-
-    /* firebase.auth().onAuthStateChanged(firebaseUser => {
-      if (firebaseUser) {
-        if(firebase.auth().currentUser.uid !== {...doc.data(), uid:doc.uid}){
-          btnDelete.style.display = 'none'
-          btnEdit.style.display = 'none'
-        };
-      } 
-    }) */
 
     btnDelete.forEach(btn => {
       btn.addEventListener('click', (event) =>{
@@ -303,13 +292,12 @@ export const feed = () => {
       event.preventDefault();
       const idTxt = btn.dataset.text
       const element = document.querySelector(`p[data-post="${idTxt}"`)
-      console.log(element)
       if (element.contentEditable !== 'true'){
         element.contentEditable = true;
         element.focus();
       }else{
-       element.contentEditable = false
-       editText(idTxt, {text:element.textContent});
+        element.contentEditable = false
+        editText(idTxt, {text:element.textContent});
       }
     });
     });

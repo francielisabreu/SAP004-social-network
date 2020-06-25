@@ -89,7 +89,6 @@ export const checkLikesLength = async (idPost) => {
 } 
 export const updateLikes = async (idPost) => {
     const previouslyLikesLength = await checkLikesLength(idPost);
-    console.log(previouslyLikesLength)
     if (!previouslyLikesLength) {
         firebase.firestore().collection('posts').doc(idPost)
         .update({likes:firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.uid)})    
@@ -107,11 +106,3 @@ firebase.firestore().collection('posts').doc(idDelete).delete()
 export const editText = (idTxt, newText) => {firebase.firestore().collection('posts').doc(idTxt).update(newText)
 .then(() => {});
 }
-
-/* export const commits = firebase.firestore().collection('posts').doc(idComment);
-commits.update({
-    regions: firebase.firestore.FieldValue.arrayUnion("greater_virginia")
-});
-commits.update({
-    regions: firebase.firestore.FieldValue.arrayRemove("east_coast")
-}); */
