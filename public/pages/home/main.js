@@ -216,9 +216,6 @@ export const feed = () => {
           </div>
           </li>
         </ul>
-        <div id="txt-commits">
-        <textarea class="area-comments" data-comments = "${posts.id}"></textarea>
-        </div>
       </div>
     `;
   
@@ -253,7 +250,6 @@ export const feed = () => {
   })
   backFeed.addEventListener('click', () => {
     feedPosts(textDrinks)
-
   })
 
   btnSair.addEventListener('click', ()=> {
@@ -277,9 +273,6 @@ export const feed = () => {
     const btnLike = document.querySelectorAll('.like');
     const btnDelete = document.querySelectorAll('.delete');
     const btnEdit = document.querySelectorAll('.edit');
-    const btnComment = document.querySelectorAll('.comment');
-    //const printComment = document.querySelectorAll('#txt-commits');
-    const printComment = document.querySelectorAll('.area-comments');
 
     btnLike.forEach(btn => {
       btn.addEventListener('click', (event) =>{
@@ -288,10 +281,6 @@ export const feed = () => {
         updateLikes(idPost)
       });
   });
-
-    const btnDelete = document.querySelectorAll('.delete');
-    const btnEdit = document.querySelectorAll('.edit');
-
 
     btnDelete.forEach(btn => {
       btn.addEventListener('click', (event) =>{
