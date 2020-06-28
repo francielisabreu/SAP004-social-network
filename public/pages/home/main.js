@@ -147,12 +147,10 @@ export const feed = () => {
       <div class="line"></div>
       <div class="line"></div>
     </div>
-
     <ul class="nav-links">
       <li>
       <a class="name-nav">
-        <strong class="name-menu"></strong> <i class="fas fa-caret-down"></i
-        ></a>
+        <strong class="name-menu"></strong></a>
       </li>
       <li>
         <a href="#" id="end-btn">Sair <i class="fas fa-sign-out-alt"></i></a>
@@ -172,12 +170,6 @@ export const feed = () => {
             placeholder="Compartilhe as suas bebidas favoritas aqui!"
           ></textarea>
           <div class="iconButtons">
-            <div class="icons"> 
-              <label for="postPrivad" class="btnreaction" title="Post Privado">
-                <i class="fas fa-lock iconPost"></i>
-            </label>
-              <input type="radio" id="postPrivad" name="radioPost" value="privad" class=" inputPostUser">  
-            </div>
             <button id="btn-pst" type="submit" class="btnSubmit">Publicar</button>
           </div>
         </form>
@@ -210,7 +202,6 @@ export const feed = () => {
           </p>
           <div class="actionBtnPost">
           <button type="button" class="btnreaction like" data-likes = "${posts.id}"><i class="fas fa-heart" title="Curtir"></i>${posts.likes.length}</button>
-          <button type="button" class="btnreaction comment" title="Comentar" data-btncomments = "${posts.id}"><i class="fas fa-comments "></i> </button>
           ${posts.uid === firebase.auth().currentUser.uid ? `<button type="button" class="btnreaction edit" title="Editar" data-text = "${posts.id}"> <i class="fas fa-edit iconPost"></i> </button>
           <button type="button" class="btnreaction delete" title="Excluir" data-delete = "${posts.id}"> <i class="fas fa-trash-alt "></i> </button>`:''}
           </div>

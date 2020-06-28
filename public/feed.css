@@ -278,7 +278,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
+  align-items: initial;
 }
 
 .area-comments{
